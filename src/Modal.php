@@ -3,6 +3,7 @@
 namespace LivewireUI\Modal;
 
 use Exception;
+use Illuminate\View\View;
 use Livewire\Component;
 use ReflectionClass;
 
@@ -12,13 +13,13 @@ class Modal extends Component
 
     public array $components = [];
 
-    public function resetState()
+    public function resetState(): void
     {
         $this->components = [];
         $this->activeComponent = null;
     }
 
-    public function openModal($component, $componentAttributes = [], $modalAttributes = [])
+    public function openModal($component, $componentAttributes = [], $modalAttributes = []): void
     {
         $requiredInterface = \LivewireUI\Modal\Contracts\ModalComponent::class;
         $componentClass = app('livewire')->getClass($component);
@@ -47,7 +48,7 @@ class Modal extends Component
         ];
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire-ui::modal');
     }

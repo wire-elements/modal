@@ -11,14 +11,14 @@ abstract class ModalComponent extends Component implements Contract
 
     public int $skipModals = 0;
 
-    public function skipPreviousModals($count = 1)
+    public function skipPreviousModals($count = 1): self
     {
         $this->skipPreviousModal($count);
 
         return $this;
     }
 
-    public function skipPreviousModal($count = 1)
+    public function skipPreviousModal($count = 1): self
     {
         $this->skipModals = $count;
 
@@ -32,12 +32,12 @@ abstract class ModalComponent extends Component implements Contract
         return $this;
     }
 
-    public function closeModal()
+    public function closeModal(): void
     {
         $this->emit('closeModal', $this->forceClose, $this->skipModals);
     }
 
-    public function closeModalWithEvents(array $events)
+    public function closeModalWithEvents(array $events): void
     {
         $this->closeModal();
         $this->emitModalEvents($events);
@@ -52,6 +52,7 @@ abstract class ModalComponent extends Component implements Contract
                 if (is_array($event)) {
                     [$event, $params] = $event;
                 }
+
                 $this->emitTo($component, $event, ...$params ?? []);
             }
         }

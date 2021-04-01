@@ -2,7 +2,6 @@
 
 namespace LivewireUI\Modal\Tests;
 
-
 use Livewire\Livewire;
 use LivewireUI\Modal\Tests\Components\DemoModal;
 
