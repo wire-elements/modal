@@ -1,0 +1,38 @@
+name: PHPUnit
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: [ '7.4', '8.0' ]
+        phpunit-versions: [ 'latest' ]
+
+    name: PHP ${{ matrix.php-versions }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, ctype, fileinfo, openssl, PDO, bcmath, json, tokenizer, xml
+          tools: phpunit:${{ matrix.phpunit-versions }}
+          coverage: none
+
+      - name: Install dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: |
+          composer update --prefer-dist --no-interaction --no-suggest
+
+      - name: Run test suite
+        run: composer run-script test
