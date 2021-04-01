@@ -1,0 +1,36 @@
+{
+  "name": "livewire-ui/modal",
+  "description": "Laravel Livewire UI component",
+  "require-dev": {
+    "orchestra/testbench": "^6.15",
+    "phpunit/phpunit": "^9.5"
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "LivewireUI\\Modal\\LivewireModalServiceProvider"
+      ]
+    }
+  },
+  "require": {
+    "php": "^7.4|^8.0",
+    "livewire/livewire": "^2.0",
+    "livewire-ui/livewire-ui": "^0.1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "LivewireUI\\Modal\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "LivewireUI\\Modal\\Tests\\": "tests"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
