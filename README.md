@@ -102,7 +102,8 @@ class EditUser extends ModalComponent
 {
     public User $user;
     
-    public function mount(User $user) {
+    public function mount(User $user)
+    {
         $this->user = $user;
     }
     
@@ -144,7 +145,8 @@ class EditUser extends ModalComponent
 {
     public User $user;
 
-    public function mount(User $user) {
+    public function mount(User $user)
+    {
         $this->user = $user;
     }
     
@@ -220,7 +222,8 @@ class DeleteTeam extends ModalComponent
 {
     public Team $team;
 
-    public function mount(Team $team) {
+    public function mount(Team $team)
+    {
         $this->team = $team;
     }
 

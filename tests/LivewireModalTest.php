@@ -58,7 +58,7 @@ class LivewireModalTest extends TestCase
             ->assertSet('components', []);
     }
 
-    public function testIfExceptionIsThrownIfModalDoesNotImplementContract()
+    public function testIfExceptionIsThrownIfModalDoesNotImplementContract(): void
     {
         $component = InvalidModal::class;
         $this->expectException(\Exception::class);

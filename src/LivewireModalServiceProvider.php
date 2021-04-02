@@ -9,7 +9,7 @@ class LivewireModalServiceProvider extends ServiceProvider
 {
     public static array $scripts = ['modal.js'];
 
-    public function boot()
+    public function boot(): void
     {
         $this->registerViews();
 
@@ -18,17 +18,17 @@ class LivewireModalServiceProvider extends ServiceProvider
         $this->registerComponent();
     }
 
-    private function registerViews()
+    private function registerViews(): void
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'livewire-ui');
     }
 
-    private function registerComponent()
+    private function registerComponent(): void
     {
         Livewire::component('livewire-ui-modal', Modal::class);
     }
 
-    private function registerPublishables()
+    private function registerPublishables(): void
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([

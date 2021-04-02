@@ -2,20 +2,19 @@
 
 namespace LivewireUI\Modal\Tests;
 
-
 use Livewire\Livewire;
 use LivewireUI\Modal\Tests\Components\DemoModal;
 
 class LivewireModalComponentTest extends TestCase
 {
-    public function testCloseModal()
+    public function testCloseModal(): void
     {
         Livewire::test(DemoModal::class)
             ->call('closeModal')
             ->assertEmitted('closeModal', false, 0);
     }
 
-    public function testForceCloseModal()
+    public function testForceCloseModal(): void
     {
         Livewire::test(DemoModal::class)
             ->call('forceClose')
@@ -23,7 +22,7 @@ class LivewireModalComponentTest extends TestCase
             ->assertEmitted('closeModal', true, 0);
     }
 
-    public function testModalSkipping()
+    public function testModalSkipping(): void
     {
         Livewire::test(DemoModal::class)
             ->call('skipPreviousModals', 5)
@@ -36,13 +35,13 @@ class LivewireModalComponentTest extends TestCase
             ->assertEmitted('closeModal', false, 1);
     }
 
-    public function testModalEventEmitting()
+    public function testModalEventEmitting(): void
     {
         Livewire::test(DemoModal::class)
             ->call('closeModalWithEvents', [
                 DemoModal::getName() => 'someEvent',
             ])
-        ->assertEmitted('someEvent');
+            ->assertEmitted('someEvent');
 
         Livewire::test(DemoModal::class)
             ->call('closeModalWithEvents', [
