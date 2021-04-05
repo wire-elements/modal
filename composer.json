@@ -1,6 +1,18 @@
 {
   "name": "livewire-ui/modal",
   "description": "Laravel Livewire UI component",
+  "keywords": [
+    "laravel",
+    "modal",
+    "livewire"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Philo Hermans",
+      "email": "me@philohermans.com"
+    }
+  ],
   "require-dev": {
     "orchestra/testbench": "^6.15",
     "phpunit/phpunit": "^9.5"
