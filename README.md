@@ -125,7 +125,7 @@ From an existing modal you can use the exact same event and a child modal will b
 
 <!-- Edit Form -->
 
-<button wire:click='$emit("openModal", "delete-user", @json(['user' => $user->id])'>Delete User</button>
+<button wire:click='$emit("openModal", "delete-user", @json(['user' => $user->id]))'>Delete User</button>
 ```
 
 ## Closing a (child) modal
