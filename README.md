@@ -9,6 +9,11 @@
 LivewireUI Modal is a Livewire component that provides you with a modal that supports multiple child modals while maintaining state.
 
 ## Installation
+
+<a href="https://philo.dev/laravel-modals-with-livewire/"><img src="https://d.pr/i/GR66B3+" alt=""></a>
+
+Click the image above to read a full article on using the Livewire UI modal package or follow the instructions below.
+
 To get started, require the package via Composer:
 
 ```
