@@ -39,9 +39,21 @@ class LivewireModalComponentTest extends TestCase
     {
         Livewire::test(DemoModal::class)
             ->call('closeModalWithEvents', [
+                'someEvent',
+            ])
+            ->assertEmitted('someEvent');
+
+        Livewire::test(DemoModal::class)
+            ->call('closeModalWithEvents', [
                 DemoModal::getName() => 'someEvent',
             ])
             ->assertEmitted('someEvent');
+
+        Livewire::test(DemoModal::class)
+            ->call('closeModalWithEvents', [
+                ['someEventWithParams', ['param1', 'param2']],
+            ])
+            ->assertEmitted('someEventWithParams', 'param1', 'param2');
 
         Livewire::test(DemoModal::class)
             ->call('closeModalWithEvents', [
