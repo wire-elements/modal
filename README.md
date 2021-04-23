@@ -87,13 +87,13 @@ To open the `EditUser` modal for a specific user we can pass the user id (notice
 
 ```html
 <!-- Outside of any Livewire component -->
-<button onclick='Livewire.emit("openModal", "edit-user", @json(["user" => $user->id]))'>Edit User</button>
+<button onclick='Livewire.emit("openModal", "edit-user", {{ json_encode(["user" => $user->id]) }})'>Edit User</button>
 
 <!-- Inside existing Livewire component -->
-<button wire:click='$emit("openModal", "edit-user", @json(["user" => $user->id]))'>Edit User</button>
+<button wire:click='$emit("openModal", "edit-user", {{ json_encode(["user" => $user->id]) }})'>Edit User</button>
 
 <!-- Example of passing multiple parameters -->
-<button wire:click='$emit("openModal", "edit-user", @json([$user->id, $isAdmin]))'>Edit User</button>
+<button wire:click='$emit("openModal", "edit-user", {{ json_encode([$user->id, $isAdmin]) }})'>Edit User</button>
 ```
 
 The parameters are passed to the `mount` method on the modal component:
@@ -130,7 +130,7 @@ From an existing modal you can use the exact same event and a child modal will b
 
 <!-- Edit Form -->
 
-<button wire:click='$emit("openModal", "delete-user", @json(['user' => $user->id]))'>Delete User</button>
+<button wire:click='$emit("openModal", "delete-user", {{ json_encode(['user' => $user->id]) }})'>Delete User</button>
 ```
 
 ## Closing a (child) modal
