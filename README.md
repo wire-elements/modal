@@ -209,6 +209,35 @@ public function update()
 }
 ```
 
+## Changing modal properties
+
+You can change the width of the modal by overriding the static `modalMaxWidth` method in your modal component class:
+
+```php
+public static function modalMaxWidth(): string
+{
+    // 'sm'
+    // 'md'
+    // 'lg'
+    // 'xl'
+    // '2xl'
+    // '3xl'
+    // '4xl'
+    // '5xl'
+    // '6xl'
+    // '7xl'
+    return '2xl';
+}
+```
+
+By default, the modal will close when you hit the `escape` key. If you want to disable this behavior to, for example, prevent accidentally closing the modal you can overwrite the static `closeModalOnEscape` method and have it return `false`.
+```php
+public static function closeModalOnEscape(): bool
+{
+    return false;
+}
+```
+
 ## Skipping previous modals
 In some cases you might want to skip previous modals. For example:
 1. Team overview modal

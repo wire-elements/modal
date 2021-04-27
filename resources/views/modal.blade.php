@@ -1,23 +1,8 @@
-@php
-    $maxWidth = [
-        'sm' => 'sm:max-w-sm',
-        'md' => 'sm:max-w-md',
-        'lg' => 'sm:max-w-lg',
-        'xl' => 'sm:max-w-xl',
-        '2xl' => 'sm:max-w-2xl',
-        '3xl' => 'sm:max-w-3xl',
-        '4xl' => 'sm:max-w-4xl',
-        '5xl' => 'sm:max-w-5xl',
-        '6xl' => 'sm:max-w-6xl',
-        '7xl' => 'sm:max-w-7xl',
-    ][$maxWidth ?? '2xl'];
-@endphp
-
 <div
     x-data="LivewireUiModal()"
     x-init="init()"
     x-on:close.stop="show = false"
-    x-on:keydown.escape.window="show = false"
+    x-on:keydown.escape.window="closeModalViaEscape()"
     x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
     x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
     x-show="show"
@@ -49,7 +34,8 @@
             x-transition:leave="ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            class="inline-block w-full align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full {{ $maxWidth }}"
+            :class="modalWidth"
+            class="inline-block w-full align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full"
         >
             @forelse($components as $id => $component)
                 <div x-show.immediate="activeComponent == '{{ $id }}'">

@@ -4,6 +4,17 @@ window.LivewireUiModal = () => {
         showActiveComponent: true,
         activeComponent: false,
         componentHistory: [],
+        modalWidth: 'sm:max-w-2xl',
+        getActiveComponentModalAttribute(key) {
+            return this.$wire.get('components')[this.activeComponent]['modalAttributes'][key];
+        },
+        closeModalViaEscape(trigger) {
+            if(this.getActiveComponentModalAttribute('closeOnEscape') === false) {
+                return;
+            }
+
+            this.show = false;
+        },
         setActiveModalComponent(id, skip = false) {
             this.show = true;
 
@@ -14,14 +25,17 @@ window.LivewireUiModal = () => {
             if (this.activeComponent === false) {
                 this.activeComponent = id
                 this.showActiveComponent = true;
+                this.modalWidth = 'sm:max-w-' + this.getActiveComponentModalAttribute('maxWidth');
             } else {
                 this.showActiveComponent = false;
 
                 setTimeout(() => {
                     this.activeComponent = id;
                     this.showActiveComponent = true;
+                    this.modalWidth = 'sm:max-w-' +  this.getActiveComponentModalAttribute('maxWidth');
                 }, 300);
             }
+
         },
         focusables() {
             let selector = 'a, button, input, textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'

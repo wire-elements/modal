@@ -33,7 +33,10 @@ class Modal extends Component
         $this->components[$id] = [
             'name'            => $component,
             'attributes'      => $componentAttributes,
-            'modalAttributes' => $modalAttributes,
+            'modalAttributes' => array_merge([
+                'closeOnEscape' => $componentClass::closeModalOnEscape(),
+                'maxWidth' => $componentClass::modalMaxWidth(),
+            ], $modalAttributes),
         ];
 
         $this->activeComponent = $id;

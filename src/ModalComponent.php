@@ -43,6 +43,16 @@ abstract class ModalComponent extends Component implements Contract
         $this->emitModalEvents($events);
     }
 
+    public static function modalMaxWidth(): string
+    {
+        return '2xl';
+    }
+
+    public static function closeModalOnEscape(): bool
+    {
+        return true;
+    }
+
     private function emitModalEvents(array $events): void
     {
         foreach ($events as $component => $event) {
