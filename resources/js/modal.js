@@ -15,6 +15,13 @@ window.LivewireUiModal = () => {
 
             this.show = false;
         },
+        closeModalViaClickAway(trigger) {
+            if(this.getActiveComponentModalAttribute('closeOnClickAway') === false) {
+                return;
+            }
+
+            this.show = false;
+        },
         setActiveModalComponent(id, skip = false) {
             this.show = true;
 
