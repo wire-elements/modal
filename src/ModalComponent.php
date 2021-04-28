@@ -53,6 +53,11 @@ abstract class ModalComponent extends Component implements Contract
         return true;
     }
 
+    public static function closeModalOnClickAway(): bool
+    {
+        return true;
+    }
+
     private function emitModalEvents(array $events): void
     {
         foreach ($events as $component => $event) {

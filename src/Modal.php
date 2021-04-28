@@ -34,6 +34,7 @@ class Modal extends Component
             'name'            => $component,
             'attributes'      => $componentAttributes,
             'modalAttributes' => array_merge([
+                'closeOnClickAway' => $componentClass::closeModalOnClickAway(),
                 'closeOnEscape' => $componentClass::closeModalOnEscape(),
                 'maxWidth' => $componentClass::modalMaxWidth(),
             ], $modalAttributes),
