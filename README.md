@@ -35,8 +35,10 @@ Add the Livewire directive `@livewire('livewire-ui-modal')` and also the Javascr
 
 Next you will need to publish the required scripts with the following command:
 ```shell
-php artisan vendor:publish --tag=livewire-ui:public
+php artisan vendor:publish --tag=livewire-ui:public --force
 ```
+
+**Important:** When updating to a newer version of LivewireUI modal make sure to run the command again with the `--force` flag.
 
 ## Alpine
 Livewire UI requires [Alpine](https://github.com/alpinejs/alpine). You can use the official CDN to quickly include Alpine:
