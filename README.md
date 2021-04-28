@@ -26,7 +26,7 @@ Add the Livewire directive `@livewire('livewire-ui-modal')` and also the Javascr
 <html>
 <body>
     <!-- content -->
-    
+
     @livewire('livewire-ui-modal')
     @livewireUIScripts
 </body>
@@ -111,12 +111,12 @@ use LivewireUI\Modal\ModalComponent;
 class EditUser extends ModalComponent
 {
     public User $user;
-    
+
     public function mount(User $user)
     {
         $this->user = $user;
     }
-    
+
     public function render()
     {
         return view('livewire.edit-user');
@@ -159,11 +159,11 @@ class EditUser extends ModalComponent
     {
         $this->user = $user;
     }
-    
+
     public function update()
     {
         $this->user->update($data);
-        
+
         $this->closeModal();
     }
 
@@ -185,7 +185,7 @@ public function update()
 }
 ```
 
-Often you will want to update other Livewire components when changes have been made. For example, the user overview when a user is updated. You can use the `closeModalWithEvents` method to achieve this. 
+Often you will want to update other Livewire components when changes have been made. For example, the user overview when a user is updated. You can use the `closeModalWithEvents` method to achieve this.
 
 ```php
 public function update()
@@ -213,22 +213,15 @@ public function update()
 
 ## Changing modal properties
 
-You can change the width of the modal by overriding the static `modalMaxWidth` method in your modal component class:
+You can change the width (default value '2xl') of the modal by overriding the static `modalMaxWidth` method in your modal component class:
 
 ```php
+/**
+ * Supported: 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl'
+ */
 public static function modalMaxWidth(): string
 {
-    // 'sm'
-    // 'md'
-    // 'lg'
-    // 'xl'
-    // '2xl'
-    // '3xl'
-    // '4xl'
-    // '5xl'
-    // '6xl'
-    // '7xl'
-    return '2xl';
+    return 'xl';
 }
 ```
 
