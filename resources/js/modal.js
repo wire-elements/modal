@@ -6,7 +6,9 @@ window.LivewireUiModal = () => {
         componentHistory: [],
         modalWidth: 'sm:max-w-2xl',
         getActiveComponentModalAttribute(key) {
-            return this.$wire.get('components')[this.activeComponent]['modalAttributes'][key];
+            if(this.$wire.get('components')[this.activeComponent] !== undefined) {
+                return this.$wire.get('components')[this.activeComponent]['modalAttributes'][key];
+            }
         },
         closeModalViaEscape(trigger) {
             if(this.getActiveComponentModalAttribute('closeOnEscape') === false) {
