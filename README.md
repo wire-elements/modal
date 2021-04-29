@@ -114,6 +114,8 @@ class EditUser extends ModalComponent
 
     public function mount(User $user)
     {
+        Gate::authorize('update', $user);
+        
         $this->user = $user;
     }
 
@@ -155,13 +157,17 @@ class EditUser extends ModalComponent
 {
     public User $user;
 
-    public function mount(User $user)
+    public function mount(User $user)   
     {
+        Gate::authorize('update', $user);
+        
         $this->user = $user;
     }
 
     public function update()
     {
+        Gate::authorize('update', $user);
+            
         $this->user->update($data);
 
         $this->closeModal();
@@ -179,6 +185,8 @@ If you don't want to go to the previous modal but close the entire modal compone
 ```php
 public function update()
 {
+    Gate::authorize('update', $user);
+    
     $this->user->update($data);
 
     $this->forceClose()->closeModal();
@@ -190,6 +198,8 @@ Often you will want to update other Livewire components when changes have been m
 ```php
 public function update()
 {
+    Gate::authorize('update', $user);
+    
     $this->user->update($data);
 
     $this->closeModalWithEvents([
@@ -261,6 +271,8 @@ class DeleteTeam extends ModalComponent
 
     public function delete()
     {
+        Gate::authorize('delete', $this->team);
+        
         $this->team->delete();
 
         $this->skipPreviousModal()->closeModalWithEvents([
@@ -274,6 +286,9 @@ class DeleteTeam extends ModalComponent
     }
 }
 ```
+
+## Security
+If you are new to Livewire I recommend to take a look at the [security details](https://laravel-livewire.com/docs/2.x/security). In short, it's **very important** to validate all information given Livewire stores this information on the client-side, or in other words, this data can be manipulated. Like shown in the examples above, use the `Guard` facade to authorize actions.
 
 ## Credits
 - [Philo Hermans](https://github.com/philoNL)
