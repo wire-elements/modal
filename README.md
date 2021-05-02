@@ -115,7 +115,7 @@ class EditUser extends ModalComponent
     public function mount(User $user)
     {
         Gate::authorize('update', $user);
-        
+
         $this->user = $user;
     }
 
@@ -157,17 +157,17 @@ class EditUser extends ModalComponent
 {
     public User $user;
 
-    public function mount(User $user)   
+    public function mount(User $user)
     {
         Gate::authorize('update', $user);
-        
+
         $this->user = $user;
     }
 
     public function update()
     {
         Gate::authorize('update', $user);
-            
+
         $this->user->update($data);
 
         $this->closeModal();
@@ -186,7 +186,7 @@ If you don't want to go to the previous modal but close the entire modal compone
 public function update()
 {
     Gate::authorize('update', $user);
-    
+
     $this->user->update($data);
 
     $this->forceClose()->closeModal();
@@ -199,7 +199,7 @@ Often you will want to update other Livewire components when changes have been m
 public function update()
 {
     Gate::authorize('update', $user);
-    
+
     $this->user->update($data);
 
     $this->closeModalWithEvents([
@@ -243,6 +243,14 @@ public static function closeModalOnEscape(): bool
 }
 ```
 
+By default, the modal will close when you click outside the modal. If you want to disable this behavior to, for example, prevent accidentally closing the modal you can overwrite the static `closeModalOnClickAway` method and have it return `false`.
+ ```php
+ public static function closeModalOnClickAway(): bool
+ {
+     return false;
+ }
+ ```
+
 ## Skipping previous modals
 In some cases you might want to skip previous modals. For example:
 1. Team overview modal
@@ -272,7 +280,7 @@ class DeleteTeam extends ModalComponent
     public function delete()
     {
         Gate::authorize('delete', $this->team);
-        
+
         $this->team->delete();
 
         $this->skipPreviousModal()->closeModalWithEvents([
