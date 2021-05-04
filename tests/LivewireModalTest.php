@@ -17,7 +17,7 @@ class LivewireModalTest extends TestCase
         // Event attributes
         $component = 'demo-modal';
         $componentAttributes = ['message' => 'Foobar'];
-        $modalAttributes = ['hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl'];
+        $modalAttributes = ['hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl', 'closeOnClickAway' => true];
 
         // Demo modal unique identifier
         $id = md5($component . serialize($componentAttributes));

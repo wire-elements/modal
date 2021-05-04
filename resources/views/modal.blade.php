@@ -2,7 +2,7 @@
     x-data="LivewireUiModal()"
     x-init="init()"
     x-on:close.stop="show = false"
-    x-on:keydown.escape.window="closeModalViaEscape()"
+    x-on:keydown.escape.window="closeModalOnEscape()"
     x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
     x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
     x-show="show"
@@ -12,7 +12,7 @@
     <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-10 text-center sm:block sm:p-0">
         <div
             x-show="show"
-            x-on:click="show = false"
+            x-on:click="closeModalOnClickAway()"
             x-transition:enter="ease-out duration-300"
             x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100"

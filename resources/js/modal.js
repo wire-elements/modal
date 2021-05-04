@@ -10,8 +10,15 @@ window.LivewireUiModal = () => {
                 return this.$wire.get('components')[this.activeComponent]['modalAttributes'][key];
             }
         },
-        closeModalViaEscape(trigger) {
+        closeModalOnEscape(trigger) {
             if(this.getActiveComponentModalAttribute('closeOnEscape') === false) {
+                return;
+            }
+
+            this.show = false;
+        },
+        closeModalOnClickAway(trigger) {
+            if(this.getActiveComponentModalAttribute('closeOnClickAway') === false) {
                 return;
             }
 

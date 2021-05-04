@@ -48,6 +48,11 @@ abstract class ModalComponent extends Component implements Contract
         return '2xl';
     }
 
+    public static function closeModalOnClickAway(): bool
+    {
+        return true;
+    }
+
     public static function closeModalOnEscape(): bool
     {
         return true;

@@ -243,6 +243,14 @@ public static function closeModalOnEscape(): bool
 }
 ```
 
+By default, the modal will close when you click outside the modal. If you want to disable this behavior to, for example, prevent accidentally closing the modal you can overwrite the static `closeModalOnClickAway` method and have it return `false`.
+ ```php
+ public static function closeModalOnClickAway(): bool
+ {
+     return false;
+ }
+ ```
+
 ## Skipping previous modals
 In some cases you might want to skip previous modals. For example:
 1. Team overview modal
