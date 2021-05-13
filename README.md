@@ -251,6 +251,22 @@ By default, the modal will close when you click outside the modal. If you want t
  }
  ```
 
+ By default, closing a modal by pressing the escape key will force close all modals. If you want to disable this behavior to, for example, allow pressing escape to show a previous modal, you can overwrite the static `closeModalOnEscapeIsForceful` method and have it return `false`.
+ ```php
+ public static function closeModalOnEscapeIsForceful(): bool
+ {
+     return false;
+ }
+ ```
+
+ When a modal is closed, you can optionally enable a `modalClosed` event to be fired. This event will be fired on a call to `closeModal`, when the escape button is pressed, or when you click outside the modal. The name of the closed component will be provided as a parameter;
+ ```php
+ public static function dispatchCloseEvent(): bool
+ {
+     return true;
+ }
+ ```
+
 ## Skipping previous modals
 In some cases you might want to skip previous modals. For example:
 1. Team overview modal

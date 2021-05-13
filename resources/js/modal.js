@@ -15,14 +15,40 @@ window.LivewireUiModal = () => {
                 return;
             }
 
-            this.show = false;
+            let force = this.getActiveComponentModalAttribute('closeOnEscapeIsForceful') === true;
+            this.closeModal(force);
         },
         closeModalOnClickAway(trigger) {
             if(this.getActiveComponentModalAttribute('closeOnClickAway') === false) {
                 return;
             }
 
-            this.show = false;
+            this.closeModal(force);
+        },
+        closeModal(force = false, skipPreviousModals = 0) {
+
+            if(this.getActiveComponentModalAttribute('dispatchCloseEvent') === true) {
+                const componentName = this.$wire.get('components')[this.activeComponent].name;    
+                Livewire.emit('modalClosed', componentName);
+            }
+            
+            if (skipPreviousModals > 0) {
+                for ( var i = 0; i < skipPreviousModals; i++ ) {
+                    this.componentHistory.pop();
+                }
+            }
+
+            const id = this.componentHistory.pop();
+
+            if (id && force === false) {
+                if (id) {
+                    this.setActiveModalComponent(id, true);
+                } else {
+                    this.show = false;
+                }
+            } else {
+                this.show = false;
+            }
         },
         setActiveModalComponent(id, skip = false) {
             this.show = true;
@@ -85,24 +111,7 @@ window.LivewireUiModal = () => {
             });
 
             Livewire.on('closeModal', (force = false, skipPreviousModals = 0) => {
-
-                if (skipPreviousModals > 0) {
-                    for ( var i = 0; i < skipPreviousModals; i++ ) {
-                        this.componentHistory.pop();
-                    }
-                }
-
-                const id = this.componentHistory.pop();
-
-                if (id && force === false) {
-                    if (id) {
-                        this.setActiveModalComponent(id, true);
-                    } else {
-                        this.show = false;
-                    }
-                } else {
-                    this.show = false;
-                }
+                this.closeModal(force, skipPreviousModals);
             });
 
             Livewire.on('activeModalComponentChanged', (id) => {
