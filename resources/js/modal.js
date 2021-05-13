@@ -23,7 +23,7 @@ window.LivewireUiModal = () => {
                 return;
             }
 
-            this.closeModal(force);
+            this.closeModal(true);
         },
         closeModal(force = false, skipPreviousModals = 0) {
 
