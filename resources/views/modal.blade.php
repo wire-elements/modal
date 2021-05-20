@@ -38,7 +38,7 @@
             class="inline-block w-full align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full"
         >
             @forelse($components as $id => $component)
-                <div x-show.immediate="activeComponent == '{{ $id }}'">
+                <div x-show.immediate="activeComponent == '{{ $id }}'" x-ref="{{ $id }}">
                     @livewire($component['name'], $component['attributes'], key($id))
                 </div>
             @empty
