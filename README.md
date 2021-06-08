@@ -82,6 +82,9 @@ To open a modal you will need to emit an event. To open the `EditUser` modal for
 
 <!-- Inside existing Livewire component -->
 <button wire:click="$emit('openModal', 'edit-user')">Edit User</button>
+
+<!-- Taking namespace into account for component Admin/Actions/EditUser -->
+<button wire:click="$emit('openModal', 'admin.actions.edit-user')">Edit User</button>
 ```
 
 ## Passing parameters
