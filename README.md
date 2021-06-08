@@ -82,6 +82,9 @@ To open a modal you will need to emit an event. To open the `EditUser` modal for
 
 <!-- Inside existing Livewire component -->
 <button wire:click="$emit('openModal', 'edit-user')">Edit User</button>
+
+<!-- Taking namespace into account for component Admin/Actions/EditUser -->
+<button wire:click="$emit('openModal', 'admin.actions.edit-user')">Edit User</button>
 ```
 
 ## Passing parameters
@@ -134,7 +137,7 @@ From an existing modal you can use the exact same event and a child modal will b
 
 <!-- Edit Form -->
 
-<button wire:click='$emit("openModal", "delete-user", {{ json_encode(['user' => $user->id]) }})'>Delete User</button>
+<button wire:click='$emit("openModal", "delete-user", {{ json_encode(["user" => $user->id]) }})'>Delete User</button>
 ```
 
 ## Closing a (child) modal
@@ -308,6 +311,39 @@ class DeleteTeam extends ModalComponent
     {
         return view('livewire.delete-team');
     }
+}
+```
+
+## Building Tailwind CSS for production
+To purge the classes used by the package, add the following lines to your purge array in `tailwind.config.js`:
+```js
+'./vendor/livewire-ui/modal/resources/views/*.blade.php',
+'./storage/framework/views/*.php',
+```
+
+Because some classes are dynamically build you should add some classes to the purge safelist so your `tailwind.config.js` should look something like this:
+```js
+module.exports = {
+  purge: {
+    content: [
+      './vendor/livewire-ui/modal/resources/views/*.blade.php',
+      './storage/framework/views/*.php',
+      './resources/views/**/*.blade.php',
+    ],
+    options: {
+      safelist: [
+        'sm:max-w-2xl'
+      ]
+    }
+  },
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
 }
 ```
 

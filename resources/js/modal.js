@@ -57,6 +57,8 @@ window.LivewireUiModal = () => {
                 this.componentHistory.push(this.activeComponent);
             }
 
+            let focusableTimeout = 50;
+
             if (this.activeComponent === false) {
                 this.activeComponent = id
                 this.showActiveComponent = true;
@@ -64,12 +66,21 @@ window.LivewireUiModal = () => {
             } else {
                 this.showActiveComponent = false;
 
+                focusableTimeout = 400;
+
                 setTimeout(() => {
                     this.activeComponent = id;
                     this.showActiveComponent = true;
                     this.modalWidth = 'sm:max-w-' +  this.getActiveComponentModalAttribute('maxWidth');
                 }, 300);
             }
+
+            this.$nextTick(() => { 
+                let focusable = this.$refs[id].querySelector('[autofocus]');
+                if (focusable) {
+                    setTimeout(() => { focusable.focus(); }, focusableTimeout);
+                }
+            });
 
         },
         focusables() {
