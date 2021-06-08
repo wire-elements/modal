@@ -58,6 +58,16 @@ abstract class ModalComponent extends Component implements Contract
         return true;
     }
 
+    public static function closeModalOnEscapeIsForceful(): bool
+    {
+        return true;
+    }
+
+    public static function dispatchCloseEvent(): bool
+    {
+        return false;
+    }
+
     private function emitModalEvents(array $events): void
     {
         foreach ($events as $component => $event) {
