@@ -298,6 +298,39 @@ class DeleteTeam extends ModalComponent
 }
 ```
 
+## Building Tailwind CSS for production
+To purge the classes used by the package, add the following lines to your purge array in `tailwind.config.js`:
+```js
+'./vendor/livewire-ui/modal/resources/views/*.blade.php',
+'./storage/framework/views/*.php',
+```
+
+Because some classes are dynamically build you should add some classes to the purge safelist so your `tailwind.config.js` should look something like this:
+```js
+module.exports = {
+  purge: {
+    content: [
+      './vendor/livewire-ui/modal/resources/views/*.blade.php',
+      './storage/framework/views/*.php',
+      './resources/views/**/*.blade.php',
+    ],
+    options: {
+      safelist: [
+        'sm:max-w-2xl'
+      ]
+    }
+  },
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
 ## Security
 If you are new to Livewire I recommend to take a look at the [security details](https://laravel-livewire.com/docs/2.x/security). In short, it's **very important** to validate all information given Livewire stores this information on the client-side, or in other words, this data can be manipulated. Like shown in the examples above, use the `Guard` facade to authorize actions.
 
