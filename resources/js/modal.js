@@ -42,9 +42,7 @@ window.LivewireUiModal = () => {
             const id = this.componentHistory.pop();
 
             if (id && force === false) {
-                if (id) {
-                    this.setActiveModalComponent(id, true);
-                }
+                this.setActiveModalComponent(id, true);
             }
 
             if (this.isBootstrap()) {
