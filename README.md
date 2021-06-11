@@ -38,6 +38,18 @@ Next you will need to publish the required scripts with the following command:
 php artisan vendor:publish --tag=livewire-ui:public --force
 ```
 
+By default, tailwind modal will be called, but if you want to use bootstrap you must publish the config file:
+```shell
+php artisan vendor:publish --tag=livewire-ui:config --force
+```
+
+In config/livewire-ui-modal.php
+```php
+return [
+    'framework' => \LivewireUI\Modal\Modal::BOOTSTRAP
+];
+```
+
 **Important:** When updating to a newer version of LivewireUI modal make sure to run the command again with the `--force` flag.
 
 ## Alpine
