@@ -53,6 +53,10 @@ window.LivewireUiModal = () => {
         setActiveModalComponent(id, skip = false) {
             this.show = true;
 
+            if (this.activeComponent === id) {
+                return;
+            }
+
             if (this.activeComponent !== false && skip === false) {
                 this.componentHistory.push(this.activeComponent);
             }
