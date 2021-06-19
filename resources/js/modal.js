@@ -6,12 +6,12 @@ window.LivewireUiModal = () => {
         componentHistory: [],
         modalWidth: 'sm:max-w-2xl',
         getActiveComponentModalAttribute(key) {
-            if(this.$wire.get('components')[this.activeComponent] !== undefined) {
+            if (this.$wire.get('components')[this.activeComponent] !== undefined) {
                 return this.$wire.get('components')[this.activeComponent]['modalAttributes'][key];
             }
         },
         closeModalOnEscape(trigger) {
-            if(this.getActiveComponentModalAttribute('closeOnEscape') === false) {
+            if (this.getActiveComponentModalAttribute('closeOnEscape') === false) {
                 return;
             }
 
@@ -19,7 +19,7 @@ window.LivewireUiModal = () => {
             this.closeModal(force);
         },
         closeModalOnClickAway(trigger) {
-            if(this.getActiveComponentModalAttribute('closeOnClickAway') === false) {
+            if (this.getActiveComponentModalAttribute('closeOnClickAway') === false) {
                 return;
             }
 
@@ -27,13 +27,13 @@ window.LivewireUiModal = () => {
         },
         closeModal(force = false, skipPreviousModals = 0) {
 
-            if(this.getActiveComponentModalAttribute('dispatchCloseEvent') === true) {
-                const componentName = this.$wire.get('components')[this.activeComponent].name;    
+            if (this.getActiveComponentModalAttribute('dispatchCloseEvent') === true) {
+                const componentName = this.$wire.get('components')[this.activeComponent].name;
                 Livewire.emit('modalClosed', componentName);
             }
-            
+
             if (skipPreviousModals > 0) {
-                for ( var i = 0; i < skipPreviousModals; i++ ) {
+                for (var i = 0; i < skipPreviousModals; i++) {
                     this.componentHistory.pop();
                 }
             }
@@ -75,17 +75,18 @@ window.LivewireUiModal = () => {
                 setTimeout(() => {
                     this.activeComponent = id;
                     this.showActiveComponent = true;
-                    this.modalWidth = 'sm:max-w-' +  this.getActiveComponentModalAttribute('maxWidth');
+                    this.modalWidth = 'sm:max-w-' + this.getActiveComponentModalAttribute('maxWidth');
                 }, 300);
             }
 
-            this.$nextTick(() => { 
+            this.$nextTick(() => {
                 let focusable = this.$refs[id].querySelector('[autofocus]');
                 if (focusable) {
-                    setTimeout(() => { focusable.focus(); }, focusableTimeout);
+                    setTimeout(() => {
+                        focusable.focus();
+                    }, focusableTimeout);
                 }
             });
-
         },
         focusables() {
             let selector = 'a, button, input, textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'
