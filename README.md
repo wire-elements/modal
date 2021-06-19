@@ -44,7 +44,11 @@ php artisan vendor:publish --tag=livewire-ui:public --force
 Livewire UI requires [Alpine](https://github.com/alpinejs/alpine). You can use the official CDN to quickly include Alpine:
 
 ```html
+<!-- Alpine v2 -->
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+<!-- Alpine v3 -->
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 ```
 
 ## TailwindCSS
