@@ -21,24 +21,16 @@ composer require livewire-ui/modal
 ```
 
 ## Livewire directive
-Add the Livewire directive `@livewire('livewire-ui-modal')` and also the Javascript `@livewireUIScripts` directive to your template.
+Add the Livewire directive `@livewire('livewire-ui-modal')` directive to your template.
 ```html
 <html>
 <body>
     <!-- content -->
 
     @livewire('livewire-ui-modal')
-    @livewireUIScripts
 </body>
 </html>
 ```
-
-Next you will need to publish the required scripts with the following command:
-```shell
-php artisan vendor:publish --tag=livewire-ui:public --force
-```
-
-**Important:** When updating to a newer version of LivewireUI modal make sure to run the command again with the `--force` flag.
 
 ## Alpine
 Livewire UI requires [Alpine](https://github.com/alpinejs/alpine). You can use the official CDN to quickly include Alpine:
@@ -54,7 +46,7 @@ Livewire UI requires [Alpine](https://github.com/alpinejs/alpine). You can use t
 ## TailwindCSS
 The base modal is made with TailwindCSS. If you use a different CSS framework I recommend that you publish the modal template and change the markup to include the required classes for your CSS framework.
 ```shell
-php artisan vendor:publish --tag=livewire-ui:views
+php artisan vendor:publish --tag=livewire-ui-modal-views
 ```
 
 
@@ -349,6 +341,45 @@ module.exports = {
   },
   plugins: [],
 }
+```
+
+## Configuration
+You can customize the Modal via the `livewire-ui-modal.php` config file. This includes some additional options like including CSS if you don't use TailwindCSS for your application. To publish the config run the vendor:publish command:
+```shell
+php artisan vendor:publish --tag=livewire-ui-modal-config
+```
+
+```php
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Include CSS
+    |--------------------------------------------------------------------------
+    |
+    | The modal uses TailwindCSS, if you don't use TailwindCSS you will need
+    | to set this parameter to true. This includes the modern-normalize css.
+    |
+    */
+    'include_css' => false,
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Include JS
+    |--------------------------------------------------------------------------
+    |
+    | Livewire UI will inject the required Javascript in your blade template.
+    | If you want to bundle the required Javascript you can set this to false
+    | and add `require('vendor/livewire-ui/modal/resources/js/modal');`
+    | to your script bundler like webpack.
+    |
+    */
+    'include_js' => true,
+
+];
 ```
 
 ## Security

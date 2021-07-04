@@ -1,4 +1,4 @@
-window.LivewireUiModal = () => {
+window.LivewireUIModal = () => {
     return {
         show: false,
         showActiveComponent: true,

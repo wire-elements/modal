@@ -2,46 +2,33 @@
 
 namespace LivewireUI\Modal;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 use Livewire\Livewire;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class LivewireModalServiceProvider extends ServiceProvider
+class LivewireModalServiceProvider extends PackageServiceProvider
 {
-    public static array $scripts = ['modal.js'];
-
-    public function boot(): void
+    public function configurePackage(Package $package): void
     {
-        $this->registerViews();
-
-        $this->registerPublishables();
-
-        $this->registerComponent();
+        $package
+            ->name('livewire-ui-modal')
+            ->hasConfigFile()
+            ->hasViews();
     }
 
-    private function registerViews(): void
-    {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'livewire-ui');
-    }
-
-    private function registerComponent(): void
+    public function bootingPackage(): void
     {
         Livewire::component('livewire-ui-modal', Modal::class);
-    }
 
-    private function registerPublishables(): void
-    {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/livewire-ui'),
-            ], 'livewire-ui:views');
+        View::composer('livewire-ui-modal::modal', function ($view) {
+            if (config('livewire-ui-modal.include_js', true)) {
+                $view->jsPath = __DIR__.'/../public/modal.js';
+            }
 
-            $this->publishes([
-                __DIR__.'/../resources/js' => resource_path('js/vendor/livewire-ui'),
-            ], 'livewire-ui:scripts');
-
-            $this->publishes([
-                __DIR__.'/../public' => public_path('vendor/livewire-ui'),
-            ], 'livewire-ui:public');
-        }
+            if (config('livewire-ui-modal.include_css', false)) {
+                $view->cssPath = __DIR__ . '/../public/modal.css';
+            }
+        });
     }
 }
