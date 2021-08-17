@@ -379,6 +379,16 @@ return [
     */
     'include_js' => true,
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Focusables Selector
+    |--------------------------------------------------------------------------
+    |
+    | Query Selector string to return focusable elements in a modal.
+    |
+    */
+    'focusables_selector' => 'a, button, input, textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'
 ];
 ```
 
