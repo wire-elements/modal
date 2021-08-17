@@ -13,6 +13,15 @@ class Modal extends Component
 
     public array $components = [];
 
+    public string $focusablesSelector = 'a, button, input, textarea, select, details, [tabindex]:not([tabindex=\'-1\'])';
+    
+    public function mount()
+    {
+        if (config('livewire-ui-modal.focusables_selector')) {
+            $this->focusablesSelector = config('livewire-ui-modal.focusables_selector');
+        }
+    }
+
     public function resetState(): void
     {
         $this->components = [];

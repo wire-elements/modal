@@ -90,6 +90,10 @@ window.LivewireUIModal = () => {
         },
         focusables() {
             let selector = 'a, button, input, textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'
+            
+            if (this.$wire.get('focusablesSelector') !== undefined) {
+                selector = this.$wire.get('focusablesSelector')
+            }
 
             return [...this.$el.querySelectorAll(selector)]
                 .filter(el => !el.hasAttribute('disabled'))
