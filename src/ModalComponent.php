@@ -65,7 +65,7 @@ abstract class ModalComponent extends Component implements Contract
 
     public static function dispatchCloseEvent(): bool
     {
-        return config('livewire-ui-modal.component_defaults.dispatch_close_event', true);
+        return config('livewire-ui-modal.component_defaults.dispatch_close_event', false);
     }
 
     private function emitModalEvents(array $events): void
