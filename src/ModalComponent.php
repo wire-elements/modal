@@ -45,27 +45,27 @@ abstract class ModalComponent extends Component implements Contract
 
     public static function modalMaxWidth(): string
     {
-        return '2xl';
+        return config('livewire-ui-modal.component_defaults.modal_max_width', '2xl');
     }
 
     public static function closeModalOnClickAway(): bool
     {
-        return true;
+        return config('livewire-ui-modal.component_defaults.close_modal_on_click_away', true);
     }
 
     public static function closeModalOnEscape(): bool
     {
-        return true;
+        return config('livewire-ui-modal.component_defaults.close_modal_on_escape', true);
     }
 
     public static function closeModalOnEscapeIsForceful(): bool
     {
-        return true;
+        return config('livewire-ui-modal.component_defaults.close_modal_on_escape_is_forceful', true);
     }
 
     public static function dispatchCloseEvent(): bool
     {
-        return false;
+        return config('livewire-ui-modal.component_defaults.dispatch_close_event', true);
     }
 
     private function emitModalEvents(array $events): void
