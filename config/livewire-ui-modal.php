@@ -34,12 +34,9 @@ return [
     |--------------------------------------------------------------------------
     |
     | Configure the default properties for a modal component.
-    |
-    | modal_max_width: 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl'
-    | close_modal_on_click_away: bool
-    | close_modal_on_escape: bool
-    | close_modal_on_escape_is_forceful: bool
-    | dispatch_close_event: bool
+    | 
+    | Supported modal_max_width
+    | 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl'
     */
     'component_defaults' => [
         'modal_max_width' => '2xl',
