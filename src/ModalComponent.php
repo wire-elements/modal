@@ -11,6 +11,8 @@ abstract class ModalComponent extends Component implements Contract
 
     public int $skipModals = 0;
 
+    public bool $removeFromStack = false;
+
     public function skipPreviousModals($count = 1): self
     {
         $this->skipPreviousModal($count);
@@ -32,9 +34,20 @@ abstract class ModalComponent extends Component implements Contract
         return $this;
     }
 
+    public function removeFromStack(): self
+    {
+        $this->removeFromStack = true;
+
+        return $this;
+    }
+
     public function closeModal(): void
     {
         $this->emit('closeModal', $this->forceClose, $this->skipModals);
+
+        if ($this->removeFromStack) {
+            $this->emit('popComponent', $this->id);
+        }
     }
 
     public function closeModalWithEvents(array $events): void
