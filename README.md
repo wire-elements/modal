@@ -344,7 +344,9 @@ module.exports = {
 ```
 
 ## Configuration
-You can customize the Modal via the `livewire-ui-modal.php` config file. This includes some additional options like including CSS if you don't use TailwindCSS for your application. To publish the config run the vendor:publish command:
+You can customize the Modal via the `livewire-ui-modal.php` config file. This includes some additional options like including CSS if you don't use TailwindCSS for your application, as well as the default modal properties.
+
+ To publish the config run the vendor:publish command:
 ```shell
 php artisan vendor:publish --tag=livewire-ui-modal-config
 ```
@@ -379,6 +381,28 @@ return [
     */
     'include_js' => true,
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Modal Component Defaults
+    |--------------------------------------------------------------------------
+    |
+    | Configure the default properties for a modal component.
+    | 
+    | Supported modal_max_width
+    | 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl'
+    */
+    'component_defaults' => [
+        'modal_max_width' => '2xl',
+        
+        'close_modal_on_click_away' => true,
+
+        'close_modal_on_escape' => true,
+
+        'close_modal_on_escape_is_forceful' => true,
+
+        'dispatch_close_event' => false,
+    ],
 ];
 ```
 
