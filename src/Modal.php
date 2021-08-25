@@ -47,10 +47,16 @@ class Modal extends Component
         $this->emit('activeModalComponentChanged', $id);
     }
 
+    public function popComponent()
+    {
+        array_pop($this->components);
+    }
+
     public function getListeners(): array
     {
         return [
             'openModal',
+            'popComponent'
         ];
     }
 
