@@ -95,6 +95,9 @@ To open the `EditUser` modal for a specific user we can pass the user id (notice
 
 <!-- Example of passing multiple parameters -->
 <button wire:click='$emit("openModal", "edit-user", {{ json_encode([$user->id, $isAdmin]) }})'>Edit User</button>
+
+<!-- Passing the user id if you have implemented getRouteKeyName() in your model -->
+<button onclick='Livewire.emit("openModal", "edit-user", {{ json_encode(["user" => $user->slug]) }})'>Edit User</button>
 ```
 
 The parameters are passed to the `mount` method on the modal component:
