@@ -134,8 +134,8 @@ window.LivewireUIModal = () => {
                 }
             });
 
-            Livewire.on('closeModal', (force = false, skipPreviousModals = 0) => {
-                this.closeModal(force, skipPreviousModals);
+            Livewire.on('closeModal', (force = false, skipPreviousModals = 0, destroySkipped = false) => {
+                this.closeModal(force, skipPreviousModals, destroySkipped);
             });
 
             Livewire.on('activeModalComponentChanged', (id) => {
@@ -157,7 +157,7 @@ window.LivewireUIModal = () => {
                     this.componentHistory = this.componentHistory.filter(componentId => {
                         return componentId !== id;
                     });
-                    
+
                     Livewire.emit('componentDestroyed', id);
                 }
 
