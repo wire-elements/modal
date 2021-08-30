@@ -93,7 +93,7 @@ To open the `EditUser` modal for a specific user we can pass the user id (notice
 <!-- Inside existing Livewire component -->
 <button wire:click='$emit("openModal", "edit-user", {{ json_encode(["user" => $user->id]) }})'>Edit User</button>
 
-<!-- If you have use a different primaryKey (e.g. email), adjust accordingly -->
+<!-- If you use a different primaryKey (e.g. email), adjust accordingly -->
 <button wire:click='$emit("openModal", "edit-user", {{ json_encode(["user" => $user->email]) }})'>Edit User</button>
 
 <!-- Example of passing multiple parameters -->
