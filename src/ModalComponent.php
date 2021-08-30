@@ -11,18 +11,26 @@ abstract class ModalComponent extends Component implements Contract
 
     public int $skipModals = 0;
 
-    public bool $removeFromStack = false;
+    public bool $destroySkipped = false;
 
-    public function skipPreviousModals($count = 1): self
+    public function destroySkippedModals(): self
     {
-        $this->skipPreviousModal($count);
+        $this->destroySkipped = true;
+        
+        return $this;
+    }
+
+    public function skipPreviousModals($count = 1, $destroy = false): self
+    {
+        $this->skipPreviousModal($count, $destroy);
 
         return $this;
     }
 
-    public function skipPreviousModal($count = 1): self
+    public function skipPreviousModal($count = 1, $destroy = false): self
     {
         $this->skipModals = $count;
+        $this->destroySkipped = $destroy;
 
         return $this;
     }
@@ -34,20 +42,9 @@ abstract class ModalComponent extends Component implements Contract
         return $this;
     }
 
-    public function removeFromStack(): self
-    {
-        $this->removeFromStack = true;
-
-        return $this;
-    }
-
     public function closeModal(): void
     {
-        $this->emit('closeModal', $this->forceClose, $this->skipModals);
-
-        if ($this->removeFromStack) {
-            $this->emit('popComponent', $this->id);
-        }
+        $this->emit('closeModal', $this->forceClose, $this->skipModals, $this->destroySkipped);
     }
 
     public function closeModalWithEvents(array $events): void
@@ -79,6 +76,11 @@ abstract class ModalComponent extends Component implements Contract
     public static function dispatchCloseEvent(): bool
     {
         return config('livewire-ui-modal.component_defaults.dispatch_close_event', false);
+    }
+
+    public static function destroyOnClose(): bool
+    {
+        return config('livewire-ui-modal.component_defaults.destroy_on_close', false);
     }
 
     private function emitModalEvents(array $events): void
