@@ -38,6 +38,7 @@ class Modal extends Component
                 'closeOnEscape' => $componentClass::closeModalOnEscape(),
                 'closeOnEscapeIsForceful' => $componentClass::closeModalOnEscapeIsForceful(),
                 'dispatchCloseEvent' => $componentClass::dispatchCloseEvent(),
+                'destroyOnClose' => $componentClass::destroyOnClose(),
                 'maxWidth' => $componentClass::modalMaxWidth(),
             ], $modalAttributes),
         ];
@@ -47,16 +48,16 @@ class Modal extends Component
         $this->emit('activeModalComponentChanged', $id);
     }
 
-    public function popComponent()
+    public function componentDestroyed($id): void
     {
-        array_pop($this->components);
+        unset($this->components[$id]);
     }
 
     public function getListeners(): array
     {
         return [
             'openModal',
-            'popComponent'
+            'componentDestroyed'
         ];
     }
 
