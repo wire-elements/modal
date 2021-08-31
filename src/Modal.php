@@ -53,11 +53,6 @@ class Modal extends Component
         unset($this->components[$id]);
     }
 
-    public function destroyComponent($id): void
-    {
-        unset($this->components[$id]);
-    }
-
     public function getListeners(): array
     {
         return [
