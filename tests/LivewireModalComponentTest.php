@@ -11,7 +11,7 @@ class LivewireModalComponentTest extends TestCase
     {
         Livewire::test(DemoModal::class)
             ->call('closeModal')
-            ->assertEmitted('closeModal', false, 0);
+            ->assertEmitted('closeModal', false, 0, false);
     }
 
     public function testForceCloseModal(): void
@@ -19,7 +19,7 @@ class LivewireModalComponentTest extends TestCase
         Livewire::test(DemoModal::class)
             ->call('forceClose')
             ->call('closeModal')
-            ->assertEmitted('closeModal', true, 0);
+            ->assertEmitted('closeModal', true, 0, false);
     }
 
     public function testModalSkipping(): void
@@ -27,12 +27,18 @@ class LivewireModalComponentTest extends TestCase
         Livewire::test(DemoModal::class)
             ->call('skipPreviousModals', 5)
             ->call('closeModal')
-            ->assertEmitted('closeModal', false, 5);
+            ->assertEmitted('closeModal', false, 5, false);
 
         Livewire::test(DemoModal::class)
             ->call('skipPreviousModal')
             ->call('closeModal')
-            ->assertEmitted('closeModal', false, 1);
+            ->assertEmitted('closeModal', false, 1, false);
+
+        Livewire::test(DemoModal::class)
+            ->call('skipPreviousModal')
+            ->call('destroySkippedModals')
+            ->call('closeModal')
+            ->assertEmitted('closeModal', false, 1, true);
     }
 
     public function testModalEventEmitting(): void
