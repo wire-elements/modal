@@ -21,7 +21,6 @@ class Modal extends Component
 
     public function openModal($component, $componentAttributes = [], $modalAttributes = []): void
     {
-        ray('open modal');
         $requiredInterface = \LivewireUI\Modal\Contracts\ModalComponent::class;
         $componentClass = app('livewire')->getClass($component);
         $reflect = new ReflectionClass($componentClass);
@@ -47,13 +46,10 @@ class Modal extends Component
         $this->activeComponent = $id;
 
         $this->emit('activeModalComponentChanged', $id);
-
-        ray($this->components);
     }
 
     public function destroyComponent($id): void
     {
-        ray('destroy component');
         unset($this->components[$id]);
     }
 

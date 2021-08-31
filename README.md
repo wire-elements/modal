@@ -269,6 +269,14 @@ By default, the modal will close when you click outside the modal. If you want t
  }
  ```
 
+ By default, when a child modal is closed, the closed components state is still available if the same modal component is opened again. If you would like to destroy the component when its closed you can override the static `destroyOnClose` method and have it return `true`. When a destroyed modal is opened again its state will be reset.
+ ```php
+ public static function destroyOnClose(): bool
+ {
+     return true;
+ }
+ ```
+
 ## Skipping previous modals
 In some cases you might want to skip previous modals. For example:
 1. Team overview modal
@@ -312,6 +320,12 @@ class DeleteTeam extends ModalComponent
     }
 }
 ```
+
+You can also optionally call the `destroySkippedModals()` method to destroy the skipped modals so if any are opened again their state will be reset  
+
+
+
+
 
 ## Building Tailwind CSS for production
 To purge the classes used by the package, add the following lines to your purge array in `tailwind.config.js`:
@@ -405,6 +419,8 @@ return [
         'close_modal_on_escape_is_forceful' => true,
 
         'dispatch_close_event' => false,
+        
+        'destroy_on_close' => false,
     ],
 ];
 ```
