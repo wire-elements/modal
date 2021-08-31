@@ -33,14 +33,14 @@ window.LivewireUIModal = () => {
             }
 
             if (this.getActiveComponentModalAttribute('destroyOnClose') === true) {
-                Livewire.emit('componentDestroyed', this.activeComponent);
+                Livewire.emit('destroyComponent', this.activeComponent);
             }
 
             if (skipPreviousModals > 0) {
                 for (var i = 0; i < skipPreviousModals; i++) {
                     if (destroySkipped) {
                         const id = this.componentHistory[this.componentHistory.length - 1];
-                        Livewire.emit('componentDestroyed', id);
+                        Livewire.emit('destroyComponent', id);
                     }
                     this.componentHistory.pop();
                 }
@@ -142,26 +142,7 @@ window.LivewireUIModal = () => {
                 this.setActiveModalComponent(id);
             });
 
-            Livewire.on('destroyComponent', (name) => {
-                let components = this.$wire.get('components');
-                let component = Object.getOwnPropertyNames(components).filter(id => {
-                    return components[id].name === name;
-                });
-
-                let id = component[0];
-
-                if (id == this.activeComponent) {
-                    this.closeModal()
-                    Livewire.emit('componentDestroyed', id);
-                } else {
-                    this.componentHistory = this.componentHistory.filter(componentId => {
-                        return componentId !== id;
-                    });
-
-                    Livewire.emit('componentDestroyed', id);
-                }
-
-            });
+            
         }
     };
 }
