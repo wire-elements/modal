@@ -48,7 +48,7 @@ class Modal extends Component
         $this->emit('activeModalComponentChanged', $id);
     }
 
-    public function componentDestroyed($id): void
+    public function destroyComponent($id): void
     {
         unset($this->components[$id]);
     }
@@ -57,7 +57,7 @@ class Modal extends Component
     {
         return [
             'openModal',
-            'componentDestroyed'
+            'destroyComponent'
         ];
     }
 
