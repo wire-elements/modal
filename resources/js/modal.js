@@ -120,7 +120,7 @@ window.LivewireUIModal = () => {
         prevFocusableIndex() {
             return Math.max(0, this.focusables().indexOf(document.activeElement)) - 1
         },
-        initialize() {
+        init() {
             this.$watch('show', value => {
                 if (value) {
                     document.body.classList.add('overflow-y-hidden');
