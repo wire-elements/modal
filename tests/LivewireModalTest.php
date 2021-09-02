@@ -52,10 +52,6 @@ class LivewireModalTest extends TestCase
         // Demo modal unique identifier
         $id = md5($component . serialize($componentAttributes));
 
-    
-        // Demo modal unique identifier
-        $id = md5($component . serialize($componentAttributes));
-
         Livewire::test(Modal::class)
             ->emit('openModal', $component, $componentAttributes, $modalAttributes)
             ->assertSet('components', [
