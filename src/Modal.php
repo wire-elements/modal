@@ -47,10 +47,20 @@ class Modal extends Component
         $this->emit('activeModalComponentChanged', $id);
     }
 
+    public function destroyModal($name): void
+    {
+        foreach ($this->components as $key => $component) {
+            if(in_array($name, $component)) {
+                unset($this->components[$key]);
+            }
+        }
+    }
+
     public function getListeners(): array
     {
         return [
             'openModal',
+            'destroyModal'
         ];
     }
 
