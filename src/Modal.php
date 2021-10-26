@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\View\View;
 use Livewire\Component;
 use ReflectionClass;
+use Illuminate\Support\Str;
 
 class Modal extends Component
 {
@@ -29,7 +30,7 @@ class Modal extends Component
             throw new Exception("[{$componentClass}] does not implement [{$requiredInterface}] interface.");
         }
 
-        $id = md5($component . serialize($componentAttributes));
+        $id = md5($component . serialize($componentAttributes) . Str::uuid());
         $this->components[$id] = [
             'name'            => $component,
             'attributes'      => $componentAttributes,
