@@ -38,6 +38,28 @@ class LivewireModalTest extends TestCase
             ->assertEmitted('activeModalComponentChanged');
     }
 
+    public function testOpenModalUniqueComponentId() : void
+    {
+        // Demo modal component
+        Livewire::component('demo-modal', DemoModal::class);
+
+        // Event attributes
+        $component = 'demo-modal';
+        $componentAttributes = ['message' => 'Foobar'];
+        $modalAttributes = ['hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl', 'closeOnClickAway' => true, 'closeOnEscapeIsForceful' => true, 'dispatchCloseEvent' => false];
+
+        $firstComponentId = Livewire::test(Modal::class)
+            ->emit('openModal', $component, $componentAttributes, $modalAttributes)
+            ->get('activeComponent');
+
+        $secondComponentId = Livewire::test(Modal::class)
+            ->emit('openModal', $component, $componentAttributes, $modalAttributes)
+            ->get('activeComponent');
+
+        // Verify components with same attributes have different component ids
+        $this->assertNotEquals($firstComponentId, $secondComponentId);
+    }
+
     public function testModalReset(): void
     {
         Livewire::component('demo-modal', DemoModal::class);
