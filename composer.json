@@ -1,6 +1,6 @@
 {
-  "name": "livewire-ui/modal",
-  "description": "Laravel Livewire UI component",
+  "name": "wire-elements/modal",
+  "description": "Laravel Livewire modal component",
   "keywords": [
     "laravel",
     "modal",
