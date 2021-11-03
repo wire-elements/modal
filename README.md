@@ -317,7 +317,7 @@ class DeleteTeam extends ModalComponent
 ## Building Tailwind CSS for production
 To purge the classes used by the package, add the following lines to your purge array in `tailwind.config.js`:
 ```js
-'./vendor/livewire-ui/modal/resources/views/*.blade.php',
+'./vendor/wire-elements/modal/resources/views/*.blade.php',
 './storage/framework/views/*.php',
 ```
 
@@ -326,7 +326,7 @@ Because some classes are dynamically build you should add some classes to the pu
 module.exports = {
   purge: {
     content: [
-      './vendor/livewire-ui/modal/resources/views/*.blade.php',
+      './vendor/wire-elements/modal/resources/views/*.blade.php',
       './storage/framework/views/*.php',
       './resources/views/**/*.blade.php',
     ],
@@ -379,7 +379,7 @@ return [
     |
     | Livewire UI will inject the required Javascript in your blade template.
     | If you want to bundle the required Javascript you can set this to false
-    | and add `require('vendor/livewire-ui/modal/resources/js/modal');`
+    | and add `require('vendor/wire-elements/modal/resources/js/modal');`
     | to your script bundler like webpack.
     |
     */
@@ -424,4 +424,3 @@ WireElements is open-sourced software licensed under the [MIT license](LICENSE.m
 <a href="https://observer.dev/"><img src="https://observer.dev/img/twitter-card.jpg" width="500" alt="" /></a>
 
 All your favorite Laravel Horizon features (and a few new ones) are packed into a single desktop application. A must-have productivity booster for every Laravel developer. <a href="https://observer.dev/">Click here to get Observer</a>
-
