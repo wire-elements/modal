@@ -48,5 +48,7 @@ return [
         'close_modal_on_escape_is_forceful' => true,
 
         'dispatch_close_event' => false,
+        
+        'destroy_on_close' => false,
     ],
 ];

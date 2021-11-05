@@ -25,15 +25,23 @@ window.LivewireUIModal = () => {
 
             this.closeModal(true);
         },
-        closeModal(force = false, skipPreviousModals = 0) {
+        closeModal(force = false, skipPreviousModals = 0, destroySkipped = false) {
 
             if (this.getActiveComponentModalAttribute('dispatchCloseEvent') === true) {
                 const componentName = this.$wire.get('components')[this.activeComponent].name;
                 Livewire.emit('modalClosed', componentName);
             }
 
+            if (this.getActiveComponentModalAttribute('destroyOnClose') === true) {
+                Livewire.emit('destroyComponent', this.activeComponent);
+            }
+
             if (skipPreviousModals > 0) {
                 for (var i = 0; i < skipPreviousModals; i++) {
+                    if (destroySkipped) {
+                        const id = this.componentHistory[this.componentHistory.length - 1];
+                        Livewire.emit('destroyComponent', id);
+                    }
                     this.componentHistory.pop();
                 }
             }
@@ -126,13 +134,15 @@ window.LivewireUIModal = () => {
                 }
             });
 
-            Livewire.on('closeModal', (force = false, skipPreviousModals = 0) => {
-                this.closeModal(force, skipPreviousModals);
+            Livewire.on('closeModal', (force = false, skipPreviousModals = 0, destroySkipped = false) => {
+                this.closeModal(force, skipPreviousModals, destroySkipped);
             });
 
             Livewire.on('activeModalComponentChanged', (id) => {
                 this.setActiveModalComponent(id);
             });
+
+            
         }
     };
 }

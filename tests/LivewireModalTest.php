@@ -7,6 +7,8 @@ use LivewireUI\Modal\Modal;
 use LivewireUI\Modal\Tests\Components\DemoModal;
 use LivewireUI\Modal\Tests\Components\InvalidModal;
 
+use function PHPUnit\Framework\assertArrayNotHasKey;
+
 class LivewireModalTest extends TestCase
 {
     public function testOpenModalEventListener(): void
@@ -17,7 +19,7 @@ class LivewireModalTest extends TestCase
         // Event attributes
         $component = 'demo-modal';
         $componentAttributes = ['message' => 'Foobar'];
-        $modalAttributes = ['hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl', 'closeOnClickAway' => true, 'closeOnEscapeIsForceful' => true, 'dispatchCloseEvent' => false];
+        $modalAttributes = ['hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl', 'closeOnClickAway' => true, 'closeOnEscapeIsForceful' => true, 'dispatchCloseEvent' => false, 'destroyOnClose' => false];
 
         // Demo modal unique identifier
         $id = md5($component . serialize($componentAttributes));
@@ -36,6 +38,32 @@ class LivewireModalTest extends TestCase
             ->assertSet('activeComponent', $id)
             // Verify event is emitted to client
             ->assertEmitted('activeModalComponentChanged', $id);
+    }
+
+    public function testDestroyComponentEventListener(): void
+    {
+        // Demo modal component
+        Livewire::component('demo-modal', DemoModal::class);
+
+        $component = 'demo-modal';
+        $componentAttributes = ['message' => 'Foobar'];
+        $modalAttributes = ['hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl', 'closeOnClickAway' => true, 'closeOnEscapeIsForceful' => true, 'dispatchCloseEvent' => false, 'destroyOnClose' => false];
+
+        // Demo modal unique identifier
+        $id = md5($component . serialize($componentAttributes));
+
+        Livewire::test(Modal::class)
+            ->emit('openModal', $component, $componentAttributes, $modalAttributes)
+            ->assertSet('components', [
+                $id => [
+                    'name'            => $component,
+                    'attributes'      => $componentAttributes,
+                    'modalAttributes' => $modalAttributes,
+                ],
+            ])
+            ->emit('destroyComponent', $id)
+            ->assertSet('components', []);
+            
     }
 
     public function testModalReset(): void
