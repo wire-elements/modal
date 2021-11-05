@@ -1,23 +1,24 @@
 <p align="center">
-<a href="https://github.com/livewire-ui/modal/actions"><img src="https://github.com/livewire-ui/modal/workflows/PHPUnit/badge.svg" alt="Build Status"></a>
+<a href="https://github.com/wire-elements/modal/actions"><img src="https://github.com/wire-elements/modal/workflows/PHPUnit/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/wire-elements/modal"><img src="https://img.shields.io/packagist/dt/wire-elements/modal" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/livewire-ui/modal"><img src="https://img.shields.io/packagist/dt/livewire-ui/modal" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/livewire-ui/modal"><img src="https://img.shields.io/packagist/v/livewire-ui/modal" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/livewire-ui/modal"><img src="https://img.shields.io/packagist/l/livewire-ui/modal" alt="License"></a>
+<a href="https://packagist.org/packages/wire-elements/modal"><img src="https://img.shields.io/packagist/v/wire-elements/modal" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/wire-elements/modal"><img src="https://img.shields.io/packagist/l/wire-elements/modal" alt="License"></a>
 </p>
 
-## About LivewireUI Modal
-LivewireUI Modal is a Livewire component that provides you with a modal that supports multiple child modals while maintaining state.
+## About Wire Elements Modal
+Wire Elements Modal is a Livewire component that provides you with a modal that supports multiple child modals while maintaining state.
 
 ## Installation
 
 <a href="https://philo.dev/laravel-modals-with-livewire/"><img src="https://d.pr/i/GR66B3+" alt=""></a>
 
-Click the image above to read a full article on using the Livewire UI modal package or follow the instructions below.
+Click the image above to read a full article on using the Wire Elements modal package or follow the instructions below.
 
 To get started, require the package via Composer:
 
 ```
-composer require livewire-ui/modal
+composer require wire-elements/modal
 ```
 
 ## Livewire directive
@@ -33,7 +34,7 @@ Add the Livewire directive `@livewire('livewire-ui-modal')` directive to your te
 ```
 
 ## Alpine
-Livewire UI requires [Alpine](https://github.com/alpinejs/alpine). You can use the official CDN to quickly include Alpine:
+Livewire Elements Modal requires [Alpine](https://github.com/alpinejs/alpine). You can use the official CDN to quickly include Alpine:
 
 ```html
 <!-- Alpine v2 -->
@@ -330,7 +331,7 @@ You can also optionally call the `destroySkippedModals()` method to destroy the 
 ## Building Tailwind CSS for production
 To purge the classes used by the package, add the following lines to your purge array in `tailwind.config.js`:
 ```js
-'./vendor/livewire-ui/modal/resources/views/*.blade.php',
+'./vendor/wire-elements/modal/resources/views/*.blade.php',
 './storage/framework/views/*.php',
 ```
 
@@ -339,7 +340,7 @@ Because some classes are dynamically build you should add some classes to the pu
 module.exports = {
   purge: {
     content: [
-      './vendor/livewire-ui/modal/resources/views/*.blade.php',
+      './vendor/wire-elements/modal/resources/views/*.blade.php',
       './storage/framework/views/*.php',
       './resources/views/**/*.blade.php',
     ],
@@ -392,7 +393,7 @@ return [
     |
     | Livewire UI will inject the required Javascript in your blade template.
     | If you want to bundle the required Javascript you can set this to false
-    | and add `require('vendor/livewire-ui/modal/resources/js/modal');`
+    | and add `require('vendor/wire-elements/modal/resources/js/modal');`
     | to your script bundler like webpack.
     |
     */
@@ -433,10 +434,9 @@ If you are new to Livewire I recommend to take a look at the [security details](
 - [All Contributors](../../contributors)
 
 ## License
-Livewire UI is open-sourced software licensed under the [MIT license](LICENSE.md).
+WireElements is open-sourced software licensed under the [MIT license](LICENSE.md).
 
 ## Manage your Laravel Horizon Instances With Observer
 <a href="https://observer.dev/"><img src="https://observer.dev/img/twitter-card.jpg" width="500" alt="" /></a>
 
 All your favorite Laravel Horizon features (and a few new ones) are packed into a single desktop application. A must-have productivity booster for every Laravel developer. <a href="https://observer.dev/">Click here to get Observer</a>
-
