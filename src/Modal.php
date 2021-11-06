@@ -53,11 +53,19 @@ class Modal extends Component
         unset($this->components[$id]);
     }
 
+    public function updateModalAttribute($componentId, $attribute, $value): void
+    {
+        if (isset($this->components[$componentId])) {
+            $this->components[$componentId]['modalAttributes'][$attribute] = $value;
+        }
+    }
+
     public function getListeners(): array
     {
         return [
             'openModal',
-            'destroyComponent'
+            'destroyComponent',
+            'updateModalAttribute'
         ];
     }
 
