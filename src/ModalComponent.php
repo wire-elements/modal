@@ -13,7 +13,7 @@ abstract class ModalComponent extends Component implements Contract
 
     public bool $destroySkipped = false;
 
-    public string $modalComponentId;
+    public string $modalComponentId = '';
 
     public function destroySkippedModals(): self
     {
@@ -100,7 +100,7 @@ abstract class ModalComponent extends Component implements Contract
         }
     }
 
-    protected final function updateModalAttribute($attribute, $value)
+    protected final function updateModalAttribute(string $attribute, bool $value): void
     {
         $this->emit('updateModalAttribute', $this->modalComponentId, $attribute, $value);
     }

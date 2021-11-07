@@ -47,8 +47,7 @@
             >
                 @forelse($components as $id => $component)
                     <div x-show.immediate="activeComponent == '{{ $id }}'" x-ref="{{ $id }}" wire:key="{{ $id }}">
-                        {{-- @livewire($component['name'], $component['attributes'], key($id)) --}}
-                        <livewire:is :component="$component['name']" :data="$component['attributes']" :modalComponentId="$id" wire:key="{{ $id }}" />
+                        @livewire($component['name'], $component['attributes'], key($id))
                     </div>
                 @empty
                 @endforelse
