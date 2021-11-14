@@ -2,6 +2,7 @@
 
 namespace LivewireUI\Modal;
 
+use InvalidArgumentException;
 use Livewire\Component;
 use LivewireUI\Modal\Contracts\ModalComponent as Contract;
 
@@ -12,12 +13,12 @@ abstract class ModalComponent extends Component implements Contract
     public int $skipModals = 0;
 
     public bool $destroySkipped = false;
-    
+
     protected static array $maxWidths = [
-        'sm' => 'sm:max-w-sm',
-        'md' => 'sm:max-w-md',
-        'lg' => 'sm:max-w-md md:max-w-lg',
-        'xl' => 'sm:max-w-md md:max-w-xl',
+        'sm'  => 'sm:max-w-sm',
+        'md'  => 'sm:max-w-md',
+        'lg'  => 'sm:max-w-md md:max-w-lg',
+        'xl'  => 'sm:max-w-md md:max-w-xl',
         '2xl' => 'sm:max-w-md md:max-w-xl lg:max-w-2xl',
         '3xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl',
         '4xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-4xl',
@@ -29,7 +30,7 @@ abstract class ModalComponent extends Component implements Contract
     public function destroySkippedModals(): self
     {
         $this->destroySkipped = true;
-        
+
         return $this;
     }
 
@@ -70,16 +71,18 @@ abstract class ModalComponent extends Component implements Contract
     {
         return config('livewire-ui-modal.component_defaults.modal_max_width', '2xl');
     }
-    
-    public static function modalMaxWidthClass($maxWidth = '2xl'): string
-    {
-        if(array_key_exists($maxWidth, static::$maxWidths)){
-            return static::$maxWidths[$maxWidth];
-        }
-        
-        return static::$maxWidths[static::modalMaxWidth()] ;
-    }
 
+    public static function modalMaxWidthClass(): string
+    {
+        if (!array_key_exists(static::modalMaxWidth(), static::$maxWidths)) {
+            throw new InvalidArgumentException(
+                sprintf('Modal max width [%s] is invalid. The width must be one of the following [%s].',
+                    static::modalMaxWidth(), implode(', ', array_keys(static::$maxWidths))),
+            );
+        }
+
+        return static::$maxWidths[static::modalMaxWidth()];
+    }
     
     public static function closeModalOnClickAway(): bool
     {
