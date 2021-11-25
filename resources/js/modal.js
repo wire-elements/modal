@@ -1,6 +1,7 @@
 window.LivewireUIModal = () => {
     return {
         show: false,
+        initialized: false,
         showActiveComponent: true,
         activeComponent: false,
         componentHistory: [],
@@ -122,6 +123,12 @@ window.LivewireUIModal = () => {
             return Math.max(0, this.focusables().indexOf(document.activeElement)) - 1
         },
         init() {
+            if(this.initialized) {
+                return;
+            }
+
+            this.initialized = true;
+            
             this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
             
             this.$watch('show', value => {
