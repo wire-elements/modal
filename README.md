@@ -278,6 +278,16 @@ By default, the modal will close when you click outside the modal. If you want t
  }
  ```
 
+ You can update an attribute after a modal has been opened by calling the `updateModalAttribute` method and passing in the attribute name that you want to alter and the value (bool). You can only update the following attributes after a modal has been created.
+   
+ 1. closeOnClickAway
+ 2. closeOnEscape
+ 3. closeOnEscapeIsForceful
+ 4. dispatchCloseEvent
+ 5. destroyOnClose
+
+An example use case for this would be to disable `closeOnEscape` or `closeOnClickAway` if a form has been made dirty.
+
 ## Skipping previous modals
 In some cases you might want to skip previous modals. For example:
 1. Team overview modal
