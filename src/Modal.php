@@ -41,6 +41,7 @@ class Modal extends Component
                 'dispatchCloseEvent' => $componentClass::dispatchCloseEvent(),
                 'destroyOnClose' => $componentClass::destroyOnClose(),
                 'maxWidth' => $componentClass::modalMaxWidth(),
+                'maxWidthClass' => $componentClass::modalMaxWidthClass(),
             ], $modalAttributes),
         ];
 
