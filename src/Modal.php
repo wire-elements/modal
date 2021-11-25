@@ -31,8 +31,6 @@ class Modal extends Component
 
         $id = md5($component . serialize($componentAttributes));
 
-        $componentAttributes['modalComponentId'] = $id;
-
         $this->components[$id] = [
             'name'            => $component,
             'attributes'      => $componentAttributes,
@@ -56,7 +54,7 @@ class Modal extends Component
         unset($this->components[$id]);
     }
 
-    public function updateModalAttribute($modalComponentId, $attribute, bool $value): void
+   public function updateModalAttribute($attribute, bool $value): void
     {
         $updateableAttributes = [
             'closeOnClickAway',
@@ -66,11 +64,16 @@ class Modal extends Component
             'destroyOnClose',
         ];
 
-        if (isset($this->components[$modalComponentId])) {
+        if (isset($this->components[$this->activeComponent])) {
             if(in_array($attribute, $updateableAttributes)) {
-                $this->components[$modalComponentId]['modalAttributes'][$attribute] = $value;
+                $this->components[$this->activeComponent]['modalAttributes'][$attribute] = $value;
             }
         }
+    }
+
+    public function activeModalComponentUpdated($id): void
+    {
+        $this->activeComponent = $id;
     }
     
     public function getListeners(): array
@@ -78,7 +81,8 @@ class Modal extends Component
         return [
             'openModal',
             'destroyComponent',
-            'updateModalAttribute'
+            'updateModalAttribute',
+            'activeModalComponentUpdated',
         ];
     }
 

@@ -102,6 +102,6 @@ abstract class ModalComponent extends Component implements Contract
 
     protected final function updateModalAttribute(string $attribute, bool $value): void
     {
-        $this->emit('updateModalAttribute', $this->modalComponentId, $attribute, $value);
+        $this->emit('updateModalAttribute', $attribute, $value);
     }
 }

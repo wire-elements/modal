@@ -51,6 +51,7 @@ window.LivewireUIModal = () => {
             if (id && force === false) {
                 if (id) {
                     this.setActiveModalComponent(id, true);
+                    Livewire.emit('activeModalComponentUpdated', id);
                 } else {
                     this.show = false;
                 }
