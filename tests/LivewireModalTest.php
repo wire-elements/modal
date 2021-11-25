@@ -85,6 +85,37 @@ class LivewireModalTest extends TestCase
             ->assertSet('activeComponent', null)
             ->assertSet('components', []);
     }
+
+    public function testModalAttributeUpdate(): void
+    {
+        Livewire::component('demo-modal', DemoModal::class);
+        
+        Livewire::test(Modal::class)
+            ->emit('openModal', 'demo-modal')
+            ->set('components', [
+                'some-component' => [
+                    'name'            => 'demo-modal',
+                    'attributes'      => 'bar',
+                    'modalAttributes' => [
+                        'closeOnEscape' => false
+                    ],
+                ],
+            ])
+            ->set('activeComponent', 'some-component')
+            // emit the update modal attribute event
+            ->emit('updateModalAttribute', 'closeOnEscape', true)
+            // Verify modal attribute closeOnEscape is now true
+            ->assertSet('components', [
+                'some-component' => [
+                    'name'            => 'demo-modal',
+                    'attributes'      => 'bar',
+                    'modalAttributes' => [
+                        'closeOnEscape' => true
+                    ],
+                ],
+            ]);
+            
+    }
     
     public function testIfExceptionIsThrownIfModalDoesNotImplementContract(): void
     {
