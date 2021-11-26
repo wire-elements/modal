@@ -63,8 +63,8 @@ abstract class ModalComponent extends Component implements Contract
 
     public function closeModalWithEvents(array $events): void
     {
-        $this->closeModal();
         $this->emitModalEvents($events);
+        $this->closeModal();
     }
 
     public static function modalMaxWidth(): string
