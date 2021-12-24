@@ -88,7 +88,7 @@ window.LivewireUIModal = () => {
             }
 
             this.$nextTick(() => {
-                let focusable = this.$refs[id].querySelector('[autofocus]');
+                let focusable = this.$refs[id]?.querySelector('[autofocus]');
                 if (focusable) {
                     setTimeout(() => {
                         focusable.focus();
