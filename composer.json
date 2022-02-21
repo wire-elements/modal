@@ -1,5 +1,5 @@
 {
-  "name": "wire-elements/modal",
+  "name": "jfsullivan/modal",
   "description": "Laravel Livewire modal component",
   "keywords": [
     "laravel",
@@ -9,8 +9,8 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Philo Hermans",
-      "email": "me@philohermans.com"
+      "name": "Jack Sullivan",
+      "email": "jfsullivan@foursullivans.com"
     }
   ],
   "require-dev": {

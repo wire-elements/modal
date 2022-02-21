@@ -4,7 +4,8 @@ window.LivewireUIModal = () => {
         showActiveComponent: true,
         activeComponent: false,
         componentHistory: [],
-        modalWidth: null ,
+        modalWidth: null,
+        fullWidthOnMobile: false,
         getActiveComponentModalAttribute(key) {
             if (this.$wire.get('components')[this.activeComponent] !== undefined) {
                 return this.$wire.get('components')[this.activeComponent]['modalAttributes'][key];
@@ -75,6 +76,7 @@ window.LivewireUIModal = () => {
                 this.activeComponent = id
                 this.showActiveComponent = true;
                 this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
+                this.fullWidthOnMobile = this.getActiveComponentModalAttribute('fullWidthOnMobile');
             } else {
                 this.showActiveComponent = false;
 
@@ -84,6 +86,7 @@ window.LivewireUIModal = () => {
                     this.activeComponent = id;
                     this.showActiveComponent = true;
                     this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
+                    this.fullWidthOnMobile = this.getActiveComponentModalAttribute('fullWidthOnMobile');
                 }, 300);
             }
 
@@ -122,6 +125,7 @@ window.LivewireUIModal = () => {
         },
         init() {
             this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
+            this.fullWidthOnMobile = this.getActiveComponentModalAttribute('fullWidthOnMobile');
             
             this.$watch('show', value => {
                 if (value) {

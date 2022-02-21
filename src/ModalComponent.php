@@ -72,6 +72,16 @@ abstract class ModalComponent extends Component implements Contract
         return config('livewire-ui-modal.component_defaults.modal_max_width', '2xl');
     }
 
+    public static function type(): string
+    {
+        return 'modal';
+    }
+
+    public static function fullWidthOnMobile(): bool
+    {
+        return false;
+    }
+
     public static function modalMaxWidthClass(): string
     {
         if (!array_key_exists(static::modalMaxWidth(), static::$maxWidths)) {
