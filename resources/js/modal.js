@@ -52,14 +52,14 @@ window.LivewireUIModal = () => {
                 if (id) {
                     this.setActiveModalComponent(id, true);
                 } else {
-                    this.show = false;
+                    this.setShowPropertyTo(false);
                 }
             } else {
-                this.show = false;
+                this.setShowPropertyTo(false);
             }
         },
         setActiveModalComponent(id, skip = false) {
-            this.show = true;
+            this.setShowPropertyTo(true);
 
             if (this.activeComponent === id) {
                 return;
@@ -120,21 +120,22 @@ window.LivewireUIModal = () => {
         prevFocusableIndex() {
             return Math.max(0, this.focusables().indexOf(document.activeElement)) - 1
         },
+        setShowPropertyTo(show) {
+            this.show = show;
+
+            if (show) {
+                document.body.classList.add('overflow-y-hidden');
+            } else {
+                document.body.classList.remove('overflow-y-hidden');
+
+                setTimeout(() => {
+                    this.activeComponent = false;
+                    this.$wire.resetState();
+                }, 300);
+            }
+        },
         init() {
             this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
-            
-            this.$watch('show', value => {
-                if (value) {
-                    document.body.classList.add('overflow-y-hidden');
-                } else {
-                    document.body.classList.remove('overflow-y-hidden');
-
-                    setTimeout(() => {
-                        this.activeComponent = false;
-                        this.$wire.resetState();
-                    }, 300);
-                }
-            });
 
             Livewire.on('closeModal', (force = false, skipPreviousModals = 0, destroySkipped = false) => {
                 this.closeModal(force, skipPreviousModals, destroySkipped);
@@ -143,8 +144,6 @@ window.LivewireUIModal = () => {
             Livewire.on('activeModalComponentChanged', (id) => {
                 this.setActiveModalComponent(id);
             });
-
-            
         }
     };
 }
