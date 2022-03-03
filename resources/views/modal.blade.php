@@ -8,6 +8,7 @@
 
     <div
             x-data="LivewireUIModal()"
+            x-init="init()"
             x-on:close.stop="setShowPropertyTo(false)"
             x-on:keydown.escape.window="closeModalOnEscape()"
             x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
