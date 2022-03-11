@@ -10,6 +10,7 @@
             x-data="LivewireUIModal()"
             x-init="init()"
             x-on:close.stop="setShowPropertyTo(false)"
+            x-on:open-modal.window.stop="show = true"
             x-on:keydown.escape.window="closeModalOnEscape()"
             x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
             x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
