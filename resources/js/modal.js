@@ -26,6 +26,9 @@ window.LivewireUIModal = () => {
             this.closeModal(true);
         },
         closeModal(force = false, skipPreviousModals = 0, destroySkipped = false) {
+            if(this.show === false) {
+                return;
+            }
 
             if (this.getActiveComponentModalAttribute('dispatchCloseEvent') === true) {
                 const componentName = this.$wire.get('components')[this.activeComponent].name;
