@@ -436,7 +436,8 @@ If you are new to Livewire I recommend to take a look at the [security details](
 ## License
 WireElements is open-sourced software licensed under the [MIT license](LICENSE.md).
 
-## Manage your Laravel Horizon Instances With Observer
-<a href="https://observer.dev/"><img src="https://observer.dev/img/twitter-card.jpg" width="500" alt="" /></a>
+## Beautiful components crafted with Livewire
 
-All your favorite Laravel Horizon features (and a few new ones) are packed into a single desktop application. A must-have productivity booster for every Laravel developer. <a href="https://observer.dev/">Click here to get Observer</a>
+<a href="https://wire-elements.dev/"><img src="https://philo.dev/content/images/size/w1000/2022/05/wire-elements-pro.png" width="600" alt="" /></a>
+
+<a href="https://wire-elements.dev/">Sign up to get notified</a>
