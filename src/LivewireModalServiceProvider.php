@@ -23,7 +23,7 @@ class LivewireModalServiceProvider extends PackageServiceProvider
 
         View::composer('livewire-ui-modal::modal', function ($view) {
             if (config('livewire-ui-modal.include_js', true)) {
-                $view->jsPath = __DIR__.'/../public/modal.js';
+                $view->jsPath = __DIR__.'/../resources/js/modal.js';
             }
 
             if (config('livewire-ui-modal.include_css', false)) {
@@ -31,4 +31,5 @@ class LivewireModalServiceProvider extends PackageServiceProvider
             }
         });
     }
+
 }

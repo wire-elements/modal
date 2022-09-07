@@ -3,9 +3,10 @@ window.LivewireUIModal = () => {
         show: false,
         showActiveComponent: true,
         activeComponent: false,
+        activeComponentType: null,
         componentHistory: [],
         modalWidth: null,
-        fullWidthOnMobile: false,
+        fullScreen: false,
         getActiveComponentModalAttribute(key) {
             if (this.$wire.get('components')[this.activeComponent] !== undefined) {
                 return this.$wire.get('components')[this.activeComponent]['modalAttributes'][key];
@@ -73,10 +74,11 @@ window.LivewireUIModal = () => {
             let focusableTimeout = 50;
 
             if (this.activeComponent === false) {
-                this.activeComponent = id
+                this.activeComponent = id;
+                this.activeComponentType = this.getActiveComponentModalAttribute('type');
                 this.showActiveComponent = true;
                 this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
-                this.fullWidthOnMobile = this.getActiveComponentModalAttribute('fullWidthOnMobile');
+                this.fullScreen = this.getActiveComponentModalAttribute('fullScreen');
             } else {
                 this.showActiveComponent = false;
 
@@ -84,16 +86,18 @@ window.LivewireUIModal = () => {
 
                 setTimeout(() => {
                     this.activeComponent = id;
+                    this.activeComponentType = this.getActiveComponentModalAttribute('type');
                     this.showActiveComponent = true;
                     this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
-                    this.fullWidthOnMobile = this.getActiveComponentModalAttribute('fullWidthOnMobile');
+                    this.fullScreen = this.getActiveComponentModalAttribute('fullScreen');
                 }, 300);
             }
 
             this.$nextTick(() => {
                 let focusable = this.$refs[id]?.querySelector('[autofocus]');
+
                 if (focusable) {
-                    setTimeout(() => {
+                    setTimeout(() => {                  
                         focusable.focus();
                     }, focusableTimeout);
                 }
@@ -125,8 +129,8 @@ window.LivewireUIModal = () => {
         },
         init() {
             this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
-            this.fullWidthOnMobile = this.getActiveComponentModalAttribute('fullWidthOnMobile');
-            
+            this.fullScreen = this.getActiveComponentModalAttribute('fullScreen');
+
             this.$watch('show', value => {
                 if (value) {
                     document.body.classList.add('overflow-y-hidden');
@@ -135,6 +139,8 @@ window.LivewireUIModal = () => {
 
                     setTimeout(() => {
                         this.activeComponent = false;
+                        this.activeComponentType = null;
+                        
                         this.$wire.resetState();
                     }, 300);
                 }

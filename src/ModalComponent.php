@@ -15,16 +15,39 @@ abstract class ModalComponent extends Component implements Contract
     public bool $destroySkipped = false;
 
     protected static array $maxWidths = [
-        'sm'  => 'sm:max-w-sm',
-        'md'  => 'sm:max-w-md',
-        'lg'  => 'sm:max-w-md md:max-w-lg',
-        'xl'  => 'sm:max-w-md md:max-w-xl',
-        '2xl' => 'sm:max-w-md md:max-w-xl lg:max-w-2xl',
-        '3xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl',
-        '4xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-4xl',
-        '5xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl',
-        '6xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl',
-        '7xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl',
+        // 'sm'  => 'sm:max-w-sm',
+        // 'md'  => 'sm:max-w-md',
+        // 'lg'  => 'sm:max-w-md md:max-w-lg',
+        // 'xl'  => 'sm:max-w-md md:max-w-xl',
+        // '2xl' => 'sm:max-w-md md:max-w-xl lg:max-w-2xl',
+        // '3xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl',
+        // '4xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-4xl',
+        // '5xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl',
+        // '6xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl',
+        // '7xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl',
+
+        'sm' => 'w-screen max-w-sm',
+        'md' => 'w-screen max-w-md',
+        'lg' => 'w-screen max-w-lg',
+        'xl' => 'w-screen max-w-xl',
+        '2xl' => 'w-screen max-w-2xl',
+        '3xl' => 'w-screen max-w-3xl',
+        '4xl' => 'w-screen max-w-4xl',
+        '5xl' => 'w-screen max-w-5xl',
+        '6xl' => 'w-screen max-w-6xl',
+        '7xl' => 'w-screen max-w-7xl',
+        'full' => 'w-screen max-w-full',
+
+        // 'sm'  => 'max-w-full sm:w-1/6',
+        // 'md'  => 'max-w-full sm:w-1/4',
+        // 'lg'  => 'max-w-full sm:max-w-md md:max-w-lg',
+        // 'xl'  => 'max-w-full sm:max-w-md md:max-w-xl',
+        // '2xl' => 'max-w-full sm:w-2/3 md:w-1/2 2xl:w-1/3',
+        // '3xl' => 'max-w-full sm:max-w-md md:max-w-xl lg:max-w-3xl',
+        // '4xl' => 'max-w-full sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-4xl',
+        // '5xl' => 'max-w-full sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl',
+        // '6xl' => 'max-w-full sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl',
+        // '7xl' => 'max-w-full sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl',
     ];
 
     public function destroySkippedModals(): self
@@ -77,7 +100,7 @@ abstract class ModalComponent extends Component implements Contract
         return 'modal';
     }
 
-    public static function fullWidthOnMobile(): bool
+    public static function fullScreen(): bool
     {
         return false;
     }
