@@ -34,14 +34,14 @@ Add the Livewire directive `@livewire('livewire-ui-modal')` directive to your te
 ```
 
 ## Alpine
-Livewire Elements Modal requires [Alpine](https://github.com/alpinejs/alpine). You can use the official CDN to quickly include Alpine:
+Livewire Elements Modal requires [Alpine](https://github.com/alpinejs/alpine) and the plugin[Focus](https://alpinejs.dev/plugins/focus). You can use the official CDN to quickly include Alpine:
 
 ```html
-<!-- Alpine v2 -->
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
 <!-- Alpine v3 -->
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- Focus plugin -->
+<script defer src="https://unpkg.com/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
 ```
 
 ## TailwindCSS
@@ -118,7 +118,7 @@ class EditUser extends ModalComponent
     public function mount(User $user)
     {
         Gate::authorize('update', $user);
-        
+
         $this->user = $user;
     }
 
@@ -160,17 +160,17 @@ class EditUser extends ModalComponent
 {
     public User $user;
 
-    public function mount(User $user)   
+    public function mount(User $user)
     {
         Gate::authorize('update', $user);
-        
+
         $this->user = $user;
     }
 
     public function update()
     {
         Gate::authorize('update', $user);
-            
+
         $this->user->update($data);
 
         $this->closeModal();
@@ -189,7 +189,7 @@ If you don't want to go to the previous modal but close the entire modal compone
 public function update()
 {
     Gate::authorize('update', $user);
-    
+
     $this->user->update($data);
 
     $this->forceClose()->closeModal();
@@ -202,7 +202,7 @@ Often you will want to update other Livewire components when changes have been m
 public function update()
 {
     Gate::authorize('update', $user);
-    
+
     $this->user->update($data);
 
     $this->closeModalWithEvents([
@@ -307,7 +307,7 @@ class DeleteTeam extends ModalComponent
     public function delete()
     {
         Gate::authorize('delete', $this->team);
-        
+
         $this->team->delete();
 
         $this->skipPreviousModal()->closeModalWithEvents([
@@ -322,7 +322,7 @@ class DeleteTeam extends ModalComponent
 }
 ```
 
-You can also optionally call the `destroySkippedModals()` method to destroy the skipped modals so if any are opened again their state will be reset  
+You can also optionally call the `destroySkippedModals()` method to destroy the skipped modals so if any are opened again their state will be reset
 
 
 
@@ -406,13 +406,13 @@ return [
     |--------------------------------------------------------------------------
     |
     | Configure the default properties for a modal component.
-    | 
+    |
     | Supported modal_max_width
     | 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl'
     */
     'component_defaults' => [
         'modal_max_width' => '2xl',
-        
+
         'close_modal_on_click_away' => true,
 
         'close_modal_on_escape' => true,
@@ -420,7 +420,7 @@ return [
         'close_modal_on_escape_is_forceful' => true,
 
         'dispatch_close_event' => false,
-        
+
         'destroy_on_close' => false,
     ],
 ];
