@@ -24,7 +24,7 @@
         }
     },
     "require-dev": {
-        "orchestra/testbench": "^6.15",
+        "orchestra/testbench": "^7.0",
         "phpunit/phpunit": "^9.5"
     },
     "scripts": {
@@ -39,7 +39,7 @@
         }
     },
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^8.1|^9.0",
         "jfsullivan/ui-kit": "^0.8",
         "jfsullivan/ui-kit-icons": "^0.5",
         "livewire/livewire": "^2.0",
