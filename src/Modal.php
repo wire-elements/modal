@@ -41,7 +41,7 @@ class Modal extends Component
                 'destroyOnClose' => $componentClass::destroyOnClose(),
                 'maxWidth' => $componentClass::modalMaxWidth(),
                 'maxWidthClass' => $componentClass::modalMaxWidthClass(),
-                'fullScreen' => $componentClass::fullScreen(),
+                'fullScreen' => $componentClass::fullScreenOnMobile(),
                 'type' => $componentClass::type(),
             ], $modalAttributes),
         ];

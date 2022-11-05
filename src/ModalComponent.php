@@ -100,7 +100,7 @@ abstract class ModalComponent extends Component implements Contract
         return 'modal';
     }
 
-    public static function fullScreen(): bool
+    public static function fullScreenOnMobile(): bool
     {
         return false;
     }
