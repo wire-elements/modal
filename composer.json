@@ -1,48 +1,60 @@
 {
-  "name": "jfsullivan/modal",
-  "description": "Laravel Livewire modal component",
-  "keywords": [
-    "laravel",
-    "modal",
-    "livewire"
-  ],
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Jack Sullivan",
-      "email": "jfsullivan@foursullivans.com"
-    }
-  ],
-  "require-dev": {
-    "orchestra/testbench": "^6.15",
-    "phpunit/phpunit": "^9.5"
-  },
-  "scripts": {
-    "test": "vendor/bin/phpunit",
-    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "LivewireUI\\Modal\\LivewireModalServiceProvider"
-      ]
-    }
-  },
-  "require": {
-    "php": "^7.4|^8.0",
-    "livewire/livewire": "^2.0",
-    "spatie/laravel-package-tools": "^1.9"
-  },
-  "autoload": {
-    "psr-4": {
-      "LivewireUI\\Modal\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "LivewireUI\\Modal\\Tests\\": "tests"
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "name": "jfsullivan/modal",
+    "description": "Laravel Livewire modal component",
+    "keywords": [
+        "laravel",
+        "modal",
+        "livewire"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+        "name": "Jack Sullivan",
+        "email": "jfsullivan@foursullivans.com"
+        }
+    ],
+    "repositories": {
+        "ui-kit": {
+            "type": "vcs",
+            "url": "git@github.com:jfsullivan/ui-kit.git"
+        },
+        "ui-kit-icons": {
+            "type": "vcs",
+            "url": "git@github.com:jfsullivan/ui-kit-icons.git"
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.15",
+        "phpunit/phpunit": "^9.5"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "extra": {
+        "laravel": {
+        "providers": [
+            "LivewireUI\\Modal\\LivewireModalServiceProvider"
+        ]
+        }
+    },
+    "require": {
+        "php": "^7.4|^8.0",
+        "jfsullivan/ui-kit": "^0.8",
+        "jfsullivan/ui-kit-icons": "^0.5",
+        "livewire/livewire": "^2.0",
+        "spatie/laravel-package-tools": "^1.9"
+    },
+    "autoload": {
+        "psr-4": {
+        "LivewireUI\\Modal\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+        "LivewireUI\\Modal\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
