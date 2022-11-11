@@ -27,9 +27,8 @@ class LivewireModalServiceProvider extends PackageServiceProvider
             }
 
             if (config('livewire-ui-modal.include_css', false)) {
-                $view->cssPath = __DIR__ . '/../public/modal.css';
+                $view->cssPath = __DIR__.'/../public/modal.css';
             }
         });
     }
-
 }

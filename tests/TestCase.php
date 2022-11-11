@@ -11,7 +11,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         return [
             LivewireServiceProvider::class,
-            LivewireModalServiceProvider::class
+            LivewireModalServiceProvider::class,
         ];
     }
 

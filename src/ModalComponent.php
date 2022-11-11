@@ -107,7 +107,7 @@ abstract class ModalComponent extends Component implements Contract
 
     public static function modalMaxWidthClass(): string
     {
-        if (!array_key_exists(static::modalMaxWidth(), static::$maxWidths)) {
+        if (! array_key_exists(static::modalMaxWidth(), static::$maxWidths)) {
             throw new InvalidArgumentException(
                 sprintf('Modal max width [%s] is invalid. The width must be one of the following [%s].',
                     static::modalMaxWidth(), implode(', ', array_keys(static::$maxWidths))),
@@ -116,7 +116,7 @@ abstract class ModalComponent extends Component implements Contract
 
         return static::$maxWidths[static::modalMaxWidth()];
     }
-    
+
     public static function closeModalOnClickAway(): bool
     {
         return config('livewire-ui-modal.component_defaults.close_modal_on_click_away', true);
