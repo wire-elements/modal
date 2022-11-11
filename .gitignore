@@ -1,6 +1,12 @@
-/node_modules
-/vendor
 .idea
-.DS_Store
-composer.lock
 .phpunit.result.cache
+build
+composer.lock
+composer-local.json
+coverage
+docs
+phpunit.xml
+phpstan.neon
+testbench.yaml
+vendor
+node_modules
