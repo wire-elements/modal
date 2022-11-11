@@ -29,10 +29,10 @@ class Modal extends Component
             throw new Exception("[{$componentClass}] does not implement [{$requiredInterface}] interface.");
         }
 
-        $id = md5($component . serialize($componentAttributes));
+        $id = md5($component.serialize($componentAttributes));
         $this->components[$id] = [
-            'name'            => $component,
-            'attributes'      => $componentAttributes,
+            'name' => $component,
+            'attributes' => $componentAttributes,
             'modalAttributes' => array_merge([
                 'closeOnClickAway' => $componentClass::closeModalOnClickAway(),
                 'closeOnEscape' => $componentClass::closeModalOnEscape(),
@@ -60,7 +60,7 @@ class Modal extends Component
     {
         return [
             'openModal',
-            'destroyComponent'
+            'destroyComponent',
         ];
     }
 
