@@ -53,7 +53,7 @@
                         x-description="Slide-over panel, show/hide based on slide-over state."
                     >
                         @foreach($components as $id => $component)
-                            @if($component['modalAttributes']['type'] == 'slide-over')
+                            @if(isset($component['modalAttributes']['type']) && $component['modalAttributes']['type'] == 'slide-over')
                                 <div class="flex h-full flex-col" x-show="activeComponent == '{{ $id }}'" x-ref="{{ $id }}" wire:key="{{ $id }}">
                                     @livewire($component['name'], $component['attributes'], key($id))
                                 </div>
@@ -78,7 +78,7 @@
                         >
                            
                             @foreach($components as $id => $component)
-                                @if($component['modalAttributes']['type'] == 'modal')
+                                @if(isset($component['modalAttributes']['type']) && $component['modalAttributes']['type'] == 'modal')
                                     <div class="flex h-full flex-col" x-show="activeComponent == '{{ $id }}'" x-ref="{{ $id }}" wire:key="{{ $id }}">
                                         @livewire($component['name'], $component['attributes'], key($id))
                                     </div>

@@ -19,7 +19,7 @@ class LivewireModalTest extends TestCase
         // Event attributes
         $component = 'demo-modal';
         $componentAttributes = [ 'message' => 'Foobar' ];
-        $modalAttributes = [ 'hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl',  'maxWidthClass' => 'sm:max-w-md md:max-w-xl lg:max-w-2xl', 'closeOnClickAway' => true, 'closeOnEscapeIsForceful' => true, 'dispatchCloseEvent' => false, 'destroyOnClose' => false ];
+        $modalAttributes = [ 'hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl',  'maxWidthClass' => 'sm:max-w-md md:max-w-xl lg:max-w-2xl', 'closeOnClickAway' => true, 'closeOnEscapeIsForceful' => true, 'dispatchCloseEvent' => false, 'destroyOnClose' => false, 'fullScreen' => false, 'type' => 'modal' ];
         
         // Demo modal unique identifier
         $id = md5($component . serialize($componentAttributes));
@@ -47,7 +47,7 @@ class LivewireModalTest extends TestCase
         
         $component = 'demo-modal';
         $componentAttributes = [ 'message' => 'Foobar' ];
-        $modalAttributes = [ 'hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl', 'maxWidthClass' => 'sm:max-w-md md:max-w-xl lg:max-w-2xl', 'closeOnClickAway' => true, 'closeOnEscapeIsForceful' => true, 'dispatchCloseEvent' => false, 'destroyOnClose' => false ];
+        $modalAttributes = [ 'hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl', 'maxWidthClass' => 'sm:max-w-md md:max-w-xl lg:max-w-2xl', 'closeOnClickAway' => true, 'closeOnEscapeIsForceful' => true, 'dispatchCloseEvent' => false, 'destroyOnClose' => false, 'fullScreen' => false, 'type' => 'modal' ];
         
         // Demo modal unique identifier
         $id = md5($component . serialize($componentAttributes));
