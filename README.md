@@ -219,7 +219,7 @@ public function update()
     $this->user->update($data);
 
     $this->closeModalWithEvents([
-        UserOverview::getName() => ['userModified', [$this->user->id],
+        UserOverview::getName() => ['userModified', [$this->user->id]],
     ]);
 }
 ```
