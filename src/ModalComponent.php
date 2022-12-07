@@ -83,7 +83,7 @@ abstract class ModalComponent extends Component implements Contract
 
         return static::$maxWidths[static::modalMaxWidth()];
     }
-    
+
     public static function closeModalOnClickAway(): bool
     {
         return config('livewire-ui-modal.component_defaults.close_modal_on_click_away', true);
