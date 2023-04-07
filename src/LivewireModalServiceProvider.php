@@ -2,7 +2,6 @@
 
 namespace LivewireUI\Modal;
 
-use Illuminate\Support\Facades\View;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;

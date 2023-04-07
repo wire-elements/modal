@@ -33,7 +33,7 @@ class Modal extends Component
             throw new Exception("[{$componentClass}] does not implement [{$requiredInterface}] interface.");
         }
 
-        $id = md5($component . serialize($componentAttributes));
+        $id = md5($component.serialize($componentAttributes));
 
         $componentAttributes = collect($componentAttributes)
             ->merge($this->resolveComponentProps($componentAttributes, new $componentClass()))
@@ -112,7 +112,7 @@ class Modal extends Component
     {
         return [
             'openModal',
-            'destroyComponent'
+            'destroyComponent',
         ];
     }
 
@@ -123,7 +123,7 @@ class Modal extends Component
         }
 
         if (config('livewire-ui-modal.include_css', false)) {
-            $cssPath = __DIR__ . '/../public/modal.css';
+            $cssPath = __DIR__.'/../public/modal.css';
         }
 
         return view('livewire-ui-modal::modal', [

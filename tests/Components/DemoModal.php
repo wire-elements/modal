@@ -8,7 +8,9 @@ use LivewireUI\Modal\Tests\Models\TestUser;
 class DemoModal extends ModalComponent
 {
     public TestUser $user;
+
     public $number;
+
     public $message;
 
     public function mount(TestUser $user)
