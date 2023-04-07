@@ -85,23 +85,23 @@ To open a modal you will need to emit an event. To open the `EditUser` modal for
 ```
 
 ## Passing parameters
-To open the `EditUser` modal for a specific user we can pass the user id (notice the single quotes):
+To open the `EditUser` modal for a specific user we can pass the user id:
 
 ```html
 <!-- Outside of any Livewire component -->
-<button onclick='Livewire.emit("openModal", "edit-user", {{ json_encode(["user" => $user->id]) }})'>Edit User</button>
+<button onclick="Livewire.emit('openModal', 'edit-user', {{ json_encode(['user' => $user->id]) }})">Edit User</button>
 
 <!-- Inside existing Livewire component -->
-<button wire:click='$emit("openModal", "edit-user", {{ json_encode(["user" => $user->id]) }})'>Edit User</button>
+<button wire:click="$emit('openModal', 'edit-user', {{ json_encode(['user' => $user->id]) }})">Edit User</button>
 
 <!-- If you use a different primaryKey (e.g. email), adjust accordingly -->
-<button wire:click='$emit("openModal", "edit-user", {{ json_encode(["user" => $user->email]) }})'>Edit User</button>
+<button wire:click="$emit('openModal', 'edit-user', {{ json_encode(['user' => $user->email]) }})">Edit User</button>
 
 <!-- Example of passing multiple parameters -->
-<button wire:click='$emit("openModal", "edit-user", {{ json_encode([$user->id, $isAdmin]) }})'>Edit User</button>
+<button wire:click="$emit('openModal', 'edit-user', {{ json_encode([$user->id, $isAdmin]) }})">Edit User</button>
 ```
 
-The parameters are passed to the `mount` method on the modal component:
+The parameters are injected into the modal component and the model will be automatically fetched from the database if the type is defined:
 
 ```php
 <?php
@@ -113,13 +113,14 @@ use LivewireUI\Modal\ModalComponent;
 
 class EditUser extends ModalComponent
 {
+    // This will inject just the ID
+    // public int $user;
+
     public User $user;
 
-    public function mount(User $user)
+    public function mount()
     {
-        Gate::authorize('update', $user);
-
-        $this->user = $user;
+        Gate::authorize('update', $this->user);
     }
 
     public function render()
@@ -128,6 +129,8 @@ class EditUser extends ModalComponent
     }
 }
 ```
+
+The parameters are also passed to the `mount` method on the modal component.
 
 ## Opening a child modal
 From an existing modal you can use the exact same event and a child modal will be created:
@@ -160,16 +163,14 @@ class EditUser extends ModalComponent
 {
     public User $user;
 
-    public function mount(User $user)
+    public function mount()
     {
-        Gate::authorize('update', $user);
-
-        $this->user = $user;
+        Gate::authorize('update', $this->user);
     }
 
     public function update()
     {
-        Gate::authorize('update', $user);
+        Gate::authorize('update', $this->user);
 
         $this->user->update($data);
 
@@ -188,7 +189,7 @@ If you don't want to go to the previous modal but close the entire modal compone
 ```php
 public function update()
 {
-    Gate::authorize('update', $user);
+    Gate::authorize('update', $this->user);
 
     $this->user->update($data);
 
@@ -201,7 +202,7 @@ Often you will want to update other Livewire components when changes have been m
 ```php
 public function update()
 {
-    Gate::authorize('update', $user);
+    Gate::authorize('update', $this->user);
 
     $this->user->update($data);
 

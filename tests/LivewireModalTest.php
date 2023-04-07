@@ -6,19 +6,34 @@ use Livewire\Livewire;
 use LivewireUI\Modal\Modal;
 use LivewireUI\Modal\Tests\Components\DemoModal;
 use LivewireUI\Modal\Tests\Components\InvalidModal;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Schema;
+use LivewireUI\Modal\Tests\Models\TestUser;
 
 use function PHPUnit\Framework\assertArrayNotHasKey;
 
 class LivewireModalTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function testOpenModalEventListener(): void
     {
+        Schema::create('test_users', function ($table) {
+            $table->id('id');
+            $table->string('first_name');
+            $table->timestamps();
+        });
+
+        $user = TestUser::forceCreate([
+            'first_name' => 'Philo',
+        ])->fresh();
+
         // Demo modal component
         Livewire::component('demo-modal', DemoModal::class);
         
         // Event attributes
         $component = 'demo-modal';
-        $componentAttributes = [ 'message' => 'Foobar' ];
+        $componentAttributes = [ 'user' => 1, 'number' => 42, 'message' => 'Hello World' ];
         $modalAttributes = [ 'hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl',  'maxWidthClass' => 'sm:max-w-md md:max-w-xl lg:max-w-2xl', 'closeOnClickAway' => true, 'closeOnEscapeIsForceful' => true, 'dispatchCloseEvent' => false, 'destroyOnClose' => false ];
         
         // Demo modal unique identifier
@@ -30,14 +45,17 @@ class LivewireModalTest extends TestCase
             ->assertSet('components', [
                 $id => [
                     'name'            => $component,
-                    'attributes'      => $componentAttributes,
+                    // Swap the expected user id of 1 with the Eloquent model
+                    'attributes'      => array_merge($componentAttributes, ['user' => $user]),
                     'modalAttributes' => $modalAttributes,
                 ],
             ])
             // Verify component is set to active
             ->assertSet('activeComponent', $id)
             // Verify event is emitted to client
-            ->assertEmitted('activeModalComponentChanged', $id);
+            ->assertEmitted('activeModalComponentChanged', $id)
+            // Verif if component attribute 'message' is visible
+            ->assertSee(['Hello World', 'Philo', '42']);
     }
     
     public function testDestroyComponentEventListener(): void

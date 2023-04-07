@@ -9,4 +9,8 @@
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
+    <php>
+        <server name="DB_CONNECTION" value="sqlite"/>
+        <server name="DB_DATABASE" value=":memory:"/>
+    </php>
 </phpunit>
