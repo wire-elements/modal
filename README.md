@@ -34,14 +34,15 @@ Add the Livewire directive `@livewire('livewire-ui-modal')` directive to your te
 ```
 
 ## Alpine
-Livewire Elements Modal requires [Alpine](https://github.com/alpinejs/alpine) and the plugin[Focus](https://alpinejs.dev/plugins/focus). You can use the official CDN to quickly include Alpine:
+Livewire Elements Modal requires [Alpine](https://github.com/alpinejs/alpine) and the plugin [Focus](https://alpinejs.dev/plugins/focus). You can use the official CDN to quickly include Alpine:
 
 ```html
+<!-- Focus plugin -->
+<script defer src="https://unpkg.com/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
+
 <!-- Alpine v3 -->
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-<!-- Focus plugin -->
-<script defer src="https://unpkg.com/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
 ```
 
 ## TailwindCSS
