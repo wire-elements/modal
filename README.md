@@ -6,6 +6,10 @@
 <a href="https://packagist.org/packages/wire-elements/modal"><img src="https://img.shields.io/packagist/l/wire-elements/modal" alt="License"></a>
 </p>
 
+## BETA for Livewire v3
+This is the readme for the BETA version of the package for Livewire v3. **If you are looking for the readme for the stable version for Livewire v2 [click here](https://github.com/wire-elements/modal/tree/1.0.0).**
+
+
 ## About Wire Elements Modal
 Wire Elements Modal is a Livewire component that provides you with a modal that supports multiple child modals while maintaining state.
 
@@ -18,7 +22,7 @@ Click the image above to read a full article on using the Wire Elements modal pa
 To get started, require the package via Composer:
 
 ```
-composer require wire-elements/modal
+composer require wire-elements/modal:^2.0@beta
 ```
 
 ## Livewire directive
@@ -31,17 +35,6 @@ Add the Livewire directive `@livewire('livewire-ui-modal')` directive to your te
     @livewire('livewire-ui-modal')
 </body>
 </html>
-```
-
-## Alpine
-Livewire Elements Modal requires [Alpine](https://github.com/alpinejs/alpine) and the plugin[Focus](https://alpinejs.dev/plugins/focus). You can use the official CDN to quickly include Alpine:
-
-```html
-<!-- Alpine v3 -->
-<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-<!-- Focus plugin -->
-<script defer src="https://unpkg.com/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
 ```
 
 ## TailwindCSS
@@ -75,13 +68,13 @@ To open a modal you will need to emit an event. To open the `EditUser` modal for
 
 ```html
 <!-- Outside of any Livewire component -->
-<button onclick="Livewire.emit('openModal', 'edit-user')">Edit User</button>
+<button onclick="Livewire.$dispatch('openModal', {component: 'edit-user'})">Edit User</button>
 
 <!-- Inside existing Livewire component -->
-<button wire:click="$emit('openModal', 'edit-user')">Edit User</button>
+<button wire:click="$dispatch('openModal', {component: 'edit-user'})">Edit User</button>
 
 <!-- Taking namespace into account for component Admin/Actions/EditUser -->
-<button wire:click="$emit('openModal', 'admin.actions.edit-user')">Edit User</button>
+<button wire:click="$dispatch('openModal', {component: 'admin.actions.edit-user'})">Edit User</button>
 ```
 
 ## Passing parameters
@@ -89,16 +82,16 @@ To open the `EditUser` modal for a specific user we can pass the user id:
 
 ```html
 <!-- Outside of any Livewire component -->
-<button onclick="Livewire.emit('openModal', 'edit-user', {{ json_encode(['user' => $user->id]) }})">Edit User</button>
+<button onclick="Livewire.emit('openModal', {component: 'edit-user', parameters: {user: $user->id}})">Edit User</button>
 
 <!-- Inside existing Livewire component -->
-<button wire:click="$emit('openModal', 'edit-user', {{ json_encode(['user' => $user->id]) }})">Edit User</button>
+<button wire:click="$emit('openModal', {component: 'edit-user', parameters: {user: $user->id}})">Edit User</button>
 
 <!-- If you use a different primaryKey (e.g. email), adjust accordingly -->
-<button wire:click="$emit('openModal', 'edit-user', {{ json_encode(['user' => $user->email]) }})">Edit User</button>
+<button wire:click="$emit('openModal', {component: 'edit-user', parameters: {user: $user->email}})">Edit User</button>
 
 <!-- Example of passing multiple parameters -->
-<button wire:click="$emit('openModal', 'edit-user', {{ json_encode([$user->id, $isAdmin]) }})">Edit User</button>
+<button wire:click="$emit('openModal', {component: 'edit-user', parameters: {user: $user->id, advancedMode: true}})">Edit User</button>
 ```
 
 The parameters are injected into the modal component and the model will be automatically fetched from the database if the type is defined:
@@ -140,7 +133,7 @@ From an existing modal you can use the exact same event and a child modal will b
 
 <!-- Edit Form -->
 
-<button wire:click='$emit("openModal", "delete-user", {{ json_encode(["user" => $user->id]) }})'>Delete User</button>
+<button wire:click='$emit("openModal"{component: 'delete-user', parameters: {user: $user->id}})'>Delete User</button>
 ```
 
 ## Closing a (child) modal

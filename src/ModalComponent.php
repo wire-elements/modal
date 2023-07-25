@@ -58,7 +58,7 @@ abstract class ModalComponent extends Component implements Contract
 
     public function closeModal(): void
     {
-        $this->emit('closeModal', $this->forceClose, $this->skipModals, $this->destroySkipped);
+        $this->dispatch('closeModal', force: $this->forceClose, skipPreviousModals: $this->skipModals, destroySkipped: $this->destroySkipped);
     }
 
     public function closeModalWithEvents(array $events): void
@@ -117,9 +117,9 @@ abstract class ModalComponent extends Component implements Contract
             }
 
             if (is_numeric($component)) {
-                $this->emit($event, ...$params ?? []);
+                $this->dispatch($event, ...$params ?? []);
             } else {
-                $this->emitTo($component, $event, ...$params ?? []);
+                $this->dispatch($event, ...$params ?? [])->to($component);
             }
         }
     }

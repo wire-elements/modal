@@ -32,18 +32,18 @@ window.LivewireUIModal = () => {
 
             if (this.getActiveComponentModalAttribute('dispatchCloseEvent') === true) {
                 const componentName = this.$wire.get('components')[this.activeComponent].name;
-                Livewire.emit('modalClosed', componentName);
+                Livewire.dispatch('modalClosed', componentName);
             }
 
             if (this.getActiveComponentModalAttribute('destroyOnClose') === true) {
-                Livewire.emit('destroyComponent', this.activeComponent);
+                Livewire.dispatch('destroyComponent', this.activeComponent);
             }
 
             if (skipPreviousModals > 0) {
                 for (var i = 0; i < skipPreviousModals; i++) {
                     if (destroySkipped) {
                         const id = this.componentHistory[this.componentHistory.length - 1];
-                        Livewire.emit('destroyComponent', id);
+                        Livewire.dispatch('destroyComponent', {id: id});
                     }
                     this.componentHistory.pop();
                 }
@@ -51,7 +51,7 @@ window.LivewireUIModal = () => {
 
             const id = this.componentHistory.pop();
 
-            if (id && force === false) {
+            if (id && !force) {
                 if (id) {
                     this.setActiveModalComponent(id, true);
                 } else {
@@ -140,11 +140,11 @@ window.LivewireUIModal = () => {
         init() {
             this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
 
-            Livewire.on('closeModal', (force = false, skipPreviousModals = 0, destroySkipped = false) => {
-                this.closeModal(force, skipPreviousModals, destroySkipped);
+            Livewire.on('closeModal', (data) => {
+                this.closeModal(data?.force ?? false, data?.skipPreviousModals ?? 0, data?.destroySkipped ?? false);
             });
 
-            Livewire.on('activeModalComponentChanged', (id) => {
+            Livewire.on('activeModalComponentChanged', ({id}) => {
                 this.setActiveModalComponent(id);
             });
         }

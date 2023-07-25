@@ -14,7 +14,7 @@
     }
   ],
   "require-dev": {
-    "orchestra/testbench": "^6.15",
+    "orchestra/testbench": "^8.5",
     "phpunit/phpunit": "^9.5"
   },
   "scripts": {
@@ -30,7 +30,7 @@
   },
   "require": {
     "php": "^7.4|^8.0",
-    "livewire/livewire": "^2.0",
+    "livewire/livewire": "^3.0",
     "spatie/laravel-package-tools": "^1.9"
   },
   "autoload": {

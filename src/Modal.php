@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Reflector;
 use Illuminate\View\View;
 use Livewire\Component;
+use Livewire\Mechanisms\ComponentRegistry;
 use ReflectionClass;
 
 class Modal extends Component
@@ -23,25 +24,26 @@ class Modal extends Component
         $this->activeComponent = null;
     }
 
-    public function openModal($component, $componentAttributes = [], $modalAttributes = []): void
+    public function openModal($component, $attributes = [], $modalAttributes = []): void
     {
         $requiredInterface = \LivewireUI\Modal\Contracts\ModalComponent::class;
-        $componentClass = app('livewire')->getClass($component);
+        $componentClass = app(ComponentRegistry::class)->getClass($component);
         $reflect = new ReflectionClass($componentClass);
 
         if ($reflect->implementsInterface($requiredInterface) === false) {
             throw new Exception("[{$componentClass}] does not implement [{$requiredInterface}] interface.");
         }
 
-        $id = md5($component.serialize($componentAttributes));
+        $id = md5($component.serialize($attributes));
 
-        $componentAttributes = collect($componentAttributes)
-            ->merge($this->resolveComponentProps($componentAttributes, new $componentClass()))
+        $attributes = collect($attributes)
+            ->merge($this->resolveComponentProps($attributes, new $componentClass()))
             ->all();
+
 
         $this->components[$id] = [
             'name' => $component,
-            'attributes' => $componentAttributes,
+            'attributes' => $attributes,
             'modalAttributes' => array_merge([
                 'closeOnClickAway' => $componentClass::closeModalOnClickAway(),
                 'closeOnEscape' => $componentClass::closeModalOnEscape(),
@@ -55,7 +57,7 @@ class Modal extends Component
 
         $this->activeComponent = $id;
 
-        $this->emit('activeModalComponentChanged', $id);
+        $this->dispatch('activeModalComponentChanged', id: $id);
     }
 
     public function resolveComponentProps(array $attributes, Component $component)
@@ -96,7 +98,7 @@ class Modal extends Component
             return new Collection();
         }
 
-        return collect($component->getPublicPropertiesDefinedBySubClass())
+        return collect($component->all())
             ->map(function ($value, $name) use ($component) {
                 return Reflector::getParameterClassName(new \ReflectionProperty($component, $name));
             })
