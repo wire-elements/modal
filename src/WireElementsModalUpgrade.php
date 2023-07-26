@@ -18,7 +18,7 @@ class WireElementsModalUpgrade extends UpgradeStep
             replacement: function($matches) {
                 $component = $matches[1];
                 $params = isset($matches[2]) ? ', parameters: ' . $matches[2] : '';
-                return "\$dispatch('openModal', {component: '$component'$params)";
+                return "\$dispatch('openModal', {component: '$component'$params})";
             },
             directories: 'resources'
         );
@@ -32,7 +32,7 @@ class WireElementsModalUpgrade extends UpgradeStep
             replacement: function($matches) {
                 $component = $matches[1];
                 $params = isset($matches[2]) ? ', parameters: ' . $matches[2] : '';
-                return "Livewire.dispatch('openModal', {component: '$component'$params)";
+                return "Livewire.dispatch('openModal', {component: '$component'$params})";
             },
             directories: 'resources'
         );
