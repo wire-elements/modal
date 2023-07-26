@@ -14,7 +14,7 @@ class WireElementsModalUpgrade extends UpgradeStep
             title: 'The $dispatch helper expects named parameters.',
             before: '$dispatch(\'openModal\', \'component-name\', {user: 1})',
             after: '$dispatch(\'openModal\', {component: \'component-name\', parameters: {user: 1}})',
-            pattern: '/\$dispatch\(\'openModal\', \'([^\']+)\'(?:, (\{[^}]+\}|@js\(\[[^\]]+\]\)))?\)/',
+            pattern: '/\$(?:dispatch|emit)\(\'openModal\', \'([^\']+)\'(?:, (\{[^}]+\}|@js\(\[[^\]]+\]\)))?\)/',
             replacement: function($matches) {
                 $component = $matches[1];
                 $params = isset($matches[2]) ? ', parameters: ' . $matches[2] : '';
@@ -28,7 +28,7 @@ class WireElementsModalUpgrade extends UpgradeStep
             title: 'The Livewire.dispatch helper expects named parameters.',
             before: 'Livewire.dispatch(\'openModal\', \'component-name\', {user: 1})',
             after: 'Livewire.dispatch(\'openModal\', {component: \'component-name\', parameters: {user: 1}})',
-            pattern: '/Livewire.dispatch\(\'openModal\', \'([^\']+)\'(?:, (\{[^}]+\}|@js\(\[[^\]]+\]\)))?\)/',
+            pattern: '/Livewire.(?:dispatch|emit)\(\'openModal\', \'([^\']+)\'(?:, (\{[^}]+\}|@js\(\[[^\]]+\]\)))?\)/',
             replacement: function($matches) {
                 $component = $matches[1];
                 $params = isset($matches[2]) ? ', parameters: ' . $matches[2] : '';
