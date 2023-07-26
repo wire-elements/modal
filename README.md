@@ -16,7 +16,7 @@ You can use the following command to automate the upgrade process:
 php artisan livewire:upgrade --run-only wire-elements-modal-upgrade
 ```
 
-Please review your changes and ensure the follow the new convention set by Livewire v3:
+Please review the changes and ensure they follow the new convention set by Livewire v3:
 
 ```blade
 <-- Before -->
