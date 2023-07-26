@@ -2,6 +2,7 @@
 
 namespace LivewireUI\Modal;
 
+use Livewire\Features\SupportConsoleCommands\Commands\UpgradeCommand;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -14,6 +15,11 @@ class LivewireModalServiceProvider extends PackageServiceProvider
             ->name('livewire-ui-modal')
             ->hasConfigFile()
             ->hasViews();
+    }
+
+    public function registeringPackage()
+    {
+        UpgradeCommand::addThirdPartyUpgradeStep(WireElementsModalUpgrade::class);
     }
 
     public function bootingPackage(): void
