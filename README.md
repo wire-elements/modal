@@ -153,12 +153,11 @@ From an existing modal you can use the exact same event and a child modal will b
 <!-- Edit User Modal -->
 
 <!-- Edit Form -->
-
 <button wire:click="$dispatch('openModal', { component: 'delete-user', parameters: { user: {{ $user->id }} }})">Delete User</button>
 ```
 
 ## Closing a (child) modal
-If for example a user clicks the 'Delete' button which will open a confirm dialog, you can cancel the deletion and return to the edit user modal by emitting the `closeModal` event. This will open the previous modal. If there is no previous modal the entire modal component is closed and the state will be reset.
+If for example a user clicks the 'Delete' button which will open a confirm dialog, you can cancel the deletion and return to the edit user modal by dispatching the `closeModal` event. This will open the previous modal. If there is no previous modal the entire modal component is closed and the state will be reset.
 ```html
 <button wire:click="$dispatch('closeModal')">No, do not delete</button>
 ```
