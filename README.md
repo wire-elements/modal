@@ -64,11 +64,11 @@ class EditUser extends ModalComponent
 ```
 
 ## Opening a modal
-To open a modal you will need to emit an event. To open the `EditUser` modal for example:
+To open a modal you will need to dispatch an event. To open the `EditUser` modal for example:
 
 ```html
 <!-- Outside of any Livewire component -->
-<button onclick="Livewire.$dispatch('openModal', {component: 'edit-user'})">Edit User</button>
+<button onclick="Livewire.dispatch('openModal', {component: 'edit-user'})">Edit User</button>
 
 <!-- Inside existing Livewire component -->
 <button wire:click="$dispatch('openModal', {component: 'edit-user'})">Edit User</button>
@@ -82,16 +82,16 @@ To open the `EditUser` modal for a specific user we can pass the user id:
 
 ```html
 <!-- Outside of any Livewire component -->
-<button onclick="Livewire.emit('openModal', {component: 'edit-user', parameters: {user: $user->id}})">Edit User</button>
+<button onclick="Livewire.dispatch('openModal', {component: 'edit-user', parameters: {user: $user->id}})">Edit User</button>
 
 <!-- Inside existing Livewire component -->
-<button wire:click="$emit('openModal', {component: 'edit-user', parameters: {user: $user->id}})">Edit User</button>
+<button wire:click="$dispatch('openModal', {component: 'edit-user', parameters: {user: $user->id}})">Edit User</button>
 
 <!-- If you use a different primaryKey (e.g. email), adjust accordingly -->
-<button wire:click="$emit('openModal', {component: 'edit-user', parameters: {user: $user->email}})">Edit User</button>
+<button wire:click="$dispatch('openModal', {component: 'edit-user', parameters: {user: $user->email}})">Edit User</button>
 
 <!-- Example of passing multiple parameters -->
-<button wire:click="$emit('openModal', {component: 'edit-user', parameters: {user: $user->id, advancedMode: true}})">Edit User</button>
+<button wire:click="$dispatch('openModal', {component: 'edit-user', parameters: {user: $user->id, advancedMode: true}})">Edit User</button>
 ```
 
 The parameters are injected into the modal component and the model will be automatically fetched from the database if the type is defined:
@@ -133,13 +133,13 @@ From an existing modal you can use the exact same event and a child modal will b
 
 <!-- Edit Form -->
 
-<button wire:click='$emit("openModal"{component: 'delete-user', parameters: {user: $user->id}})'>Delete User</button>
+<button wire:click='$dispatch("openModal"{component: 'delete-user', parameters: {user: $user->id}})'>Delete User</button>
 ```
 
 ## Closing a (child) modal
-If for example a user clicks the 'Delete' button which will open a confirm dialog, you can cancel the deletion and return to the edit user modal by emitting the `closeModal` event. This will open the previous modal. If there is no previous modal the entire modal component is closed and the state will be reset.
+If for example a user clicks the 'Delete' button which will open a confirm dialog, you can cancel the deletion and return to the edit user modal by dispatching the `closeModal` event. This will open the previous modal. If there is no previous modal the entire modal component is closed and the state will be reset.
 ```html
-<button wire:click="$emit('closeModal')">No, do not delete</button>
+<button wire:click="$dispatch('closeModal')">No, do not delete</button>
 ```
 
 You can also close a modal from within your modal component class:
