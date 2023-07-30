@@ -11,13 +11,13 @@ class WireElementsModalUpgrade extends UpgradeStep
     {
         $this->interactiveReplacement(
             console: $console,
-            title: 'The $dispatch helper expects named parameters.',
+            title: 'The $dispatch helper expects named arguments.',
             before: '$dispatch(\'openModal\', \'component-name\', {user: 1})',
-            after: '$dispatch(\'openModal\', {component: \'component-name\', parameters: {user: 1}})',
+            after: '$dispatch(\'openModal\', {component: \'component-name\', arguments: {user: 1}})',
             pattern: '/\$(?:dispatch|emit)\(\'openModal\', \'([^\']+)\'(?:, (\{[^}]+\}|@js\(\[[^\]]+\]\)))?\)/',
             replacement: function($matches) {
                 $component = $matches[1];
-                $params = isset($matches[2]) ? ', parameters: ' . $matches[2] : '';
+                $params = isset($matches[2]) ? ', arguments: ' . $matches[2] : '';
                 return "\$dispatch('openModal', {component: '$component'$params})";
             },
             directories: 'resources'
@@ -25,13 +25,13 @@ class WireElementsModalUpgrade extends UpgradeStep
 
         $this->interactiveReplacement(
             console: $console,
-            title: 'The Livewire.dispatch helper expects named parameters.',
+            title: 'The Livewire.dispatch helper expects named arguments.',
             before: 'Livewire.dispatch(\'openModal\', \'component-name\', {user: 1})',
-            after: 'Livewire.dispatch(\'openModal\', {component: \'component-name\', parameters: {user: 1}})',
+            after: 'Livewire.dispatch(\'openModal\', {component: \'component-name\', arguments: {user: 1}})',
             pattern: '/Livewire.(?:dispatch|emit)\(\'openModal\', \'([^\']+)\'(?:, (\{[^}]+\}|@js\(\[[^\]]+\]\)))?\)/',
             replacement: function($matches) {
                 $component = $matches[1];
-                $params = isset($matches[2]) ? ', parameters: ' . $matches[2] : '';
+                $params = isset($matches[2]) ? ', arguments: ' . $matches[2] : '';
                 return "Livewire.dispatch('openModal', {component: '$component'$params})";
             },
             directories: 'resources'
