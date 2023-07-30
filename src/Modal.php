@@ -43,7 +43,7 @@ class Modal extends Component
 
         $this->components[$id] = [
             'name' => $component,
-            'attributes' => $arguments,
+            'attributes' => $arguments, // Deprecated
             'arguments' => $arguments,
             'modalAttributes' => array_merge([
                 'closeOnClickAway' => $componentClass::closeModalOnClickAway(),

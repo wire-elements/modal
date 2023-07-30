@@ -29,6 +29,7 @@ class LivewireModalTest extends TestCase
                 $id => [
                     'name' => $component,
                     'arguments' => $arguments,
+                    'attributes' => $arguments, // Deprecated
                     'modalAttributes' => $modalAttributes,
                 ],
             ])
@@ -58,6 +59,7 @@ class LivewireModalTest extends TestCase
                 $id => [
                     'name' => $component,
                     'arguments' => $arguments,
+                    'attributes' => $arguments, // Deprecated
                     'modalAttributes' => $modalAttributes,
                 ],
             ])
