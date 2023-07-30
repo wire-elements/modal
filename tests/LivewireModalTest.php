@@ -16,19 +16,19 @@ class LivewireModalTest extends TestCase
 
         // Event attributes
         $component = 'demo-modal';
-        $componentAttributes = ['user' => 1, 'number' => 42, 'message' => 'Hello World'];
+        $arguments = ['user' => 1, 'number' => 42, 'message' => 'Hello World'];
         $modalAttributes = ['hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl',  'maxWidthClass' => 'sm:max-w-md md:max-w-xl lg:max-w-2xl', 'closeOnClickAway' => true, 'closeOnEscapeIsForceful' => true, 'dispatchCloseEvent' => false, 'destroyOnClose' => false];
 
         // Demo modal unique identifier
-        $id = md5($component.serialize($componentAttributes));
+        $id = md5($component.serialize($arguments));
 
         Livewire::test(Modal::class)
-            ->dispatch('openModal', component: $component, attributes: $componentAttributes, modalAttributes: $modalAttributes)
+            ->dispatch('openModal', component: $component, arguments: $arguments, modalAttributes: $modalAttributes)
             // Verify component is added to $components
             ->assertSet('components', [
                 $id => [
                     'name' => $component,
-                    'attributes' => $componentAttributes,
+                    'arguments' => $arguments,
                     'modalAttributes' => $modalAttributes,
                 ],
             ])
@@ -46,18 +46,18 @@ class LivewireModalTest extends TestCase
         Livewire::component('demo-modal', DemoModal::class);
 
         $component = 'demo-modal';
-        $componentAttributes = ['message' => 'Foobar'];
+        $arguments = ['message' => 'Foobar'];
         $modalAttributes = ['hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl', 'maxWidthClass' => 'sm:max-w-md md:max-w-xl lg:max-w-2xl', 'closeOnClickAway' => true, 'closeOnEscapeIsForceful' => true, 'dispatchCloseEvent' => false, 'destroyOnClose' => false];
 
         // Demo modal unique identifier
-        $id = md5($component.serialize($componentAttributes));
+        $id = md5($component.serialize($arguments));
 
         Livewire::test(Modal::class)
-            ->dispatch('openModal', component: $component, attributes: $componentAttributes, modalAttributes: $modalAttributes)
+            ->dispatch('openModal', component: $component, arguments: $arguments, modalAttributes: $modalAttributes)
             ->assertSet('components', [
                 $id => [
                     'name' => $component,
-                    'attributes' => $componentAttributes,
+                    'arguments' => $arguments,
                     'modalAttributes' => $modalAttributes,
                 ],
             ])
@@ -74,7 +74,7 @@ class LivewireModalTest extends TestCase
             ->set('components', [
                 'some-component' => [
                     'name' => 'demo-modal',
-                    'attributes' => ['bar'],
+                    'arguments' => ['bar'],
                     'modalAttributes' => [],
                 ],
             ])

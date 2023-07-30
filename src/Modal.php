@@ -121,15 +121,15 @@ class Modal extends Component
 
     public function render(): View
     {
-        if (config('livewire-ui-modal.include_js', true)) {
+        if (config('wire-elements-modal.include_js', true)) {
             $jsPath = __DIR__.'/../public/modal.js';
         }
 
-        if (config('livewire-ui-modal.include_css', false)) {
+        if (config('wire-elements-modal.include_css', false)) {
             $cssPath = __DIR__.'/../public/modal.css';
         }
 
-        return view('livewire-ui-modal::modal', [
+        return view('wire-elements-modal::modal', [
             'jsPath' => $jsPath ?? null,
             'cssPath' => $cssPath ?? null,
         ]);
