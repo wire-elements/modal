@@ -12,7 +12,7 @@ class LivewireModalServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $package
-            ->name('livewire-ui-modal')
+            ->name('wire-elements-modal')
             ->hasConfigFile()
             ->hasViews();
     }
@@ -25,5 +25,6 @@ class LivewireModalServiceProvider extends PackageServiceProvider
     public function bootingPackage(): void
     {
         Livewire::component('livewire-ui-modal', Modal::class);
+        Livewire::component('wire-elements-modal', Modal::class);
     }
 }

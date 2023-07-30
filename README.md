@@ -47,13 +47,13 @@ composer require wire-elements/modal:^2.0@beta
 ```
 
 ## Livewire directive
-Add the Livewire directive `@livewire('livewire-ui-modal')` directive to your template.
+Add the Livewire directive `@livewire('wire-elements-modal')` directive to your template.
 ```html
 <html>
 <body>
     <!-- content -->
 
-    @livewire('livewire-ui-modal')
+    @livewire('wire-elements-modal')
 </body>
 </html>
 ```
@@ -61,7 +61,7 @@ Add the Livewire directive `@livewire('livewire-ui-modal')` directive to your te
 ## TailwindCSS
 The base modal is made with TailwindCSS. If you use a different CSS framework I recommend that you publish the modal template and change the markup to include the required classes for your CSS framework.
 ```shell
-php artisan vendor:publish --tag=livewire-ui-modal-views
+php artisan vendor:publish --tag=wire-elements-modal-views
 ```
 
 
@@ -376,11 +376,11 @@ module.exports = {
 ```
 
 ## Configuration
-You can customize the Modal via the `livewire-ui-modal.php` config file. This includes some additional options like including CSS if you don't use TailwindCSS for your application, as well as the default modal properties.
+You can customize the Modal via the `wire-elements-modal.php` config file. This includes some additional options like including CSS if you don't use TailwindCSS for your application, as well as the default modal properties.
 
  To publish the config run the vendor:publish command:
 ```shell
-php artisan vendor:publish --tag=livewire-ui-modal-config
+php artisan vendor:publish --tag=wire-elements-modal-config
 ```
 
 ```php
