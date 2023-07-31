@@ -12,6 +12,7 @@ This is the readme for the BETA version of the package for Livewire v3. **If you
 ### Upgrading
 
 You can use the following command to automate the upgrade process:
+
 ```shell
 php artisan livewire:upgrade --run-only wire-elements-modal-upgrade
 ```
@@ -30,6 +31,19 @@ Please review the changes and ensure they follow the new convention set by Livew
 <button wire:click="$dispatch('openModal', {component: 'edit-user', arguments: {user: 5}})">Edit User</button>
 ```
 
+The old component name is being deprecated. Replace `@livewire('livewire-ui-modal')` with `@livewire('wire-elements-modal')`.
+
+The config file has been renamed as well. If you've published the config in the past, you will have to do so again and make the necessary changes:
+
+```shell
+php artisan vendor:publish --tag=wire-elements-modal-config
+```
+
+After upgrading, make sure to clear your view cache:
+
+```shell
+php artisan view:clear
+```
 
 ## About Wire Elements Modal
 Wire Elements Modal is a Livewire component that provides you with a modal that supports multiple child modals while maintaining state.
