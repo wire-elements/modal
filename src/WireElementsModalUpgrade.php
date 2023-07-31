@@ -37,6 +37,16 @@ class WireElementsModalUpgrade extends UpgradeStep
             directories: 'resources'
         );
 
+        $this->interactiveReplacement(
+            console: $console,
+            title: 'The modal directive has been changed.',
+            before: '@livewire(\'livewire-ui-modal\')',
+            after: '@livewire(\'wire-elements-modal\')',
+            pattern: '/@livewire\([\'|"]livewire-ui-modal[\'|"]\)/',
+            replacement: '@livewire(\'wire-elements-modal\')',
+            directories: 'resources/views'
+        );
+
         return $next($console);
     }
 }
