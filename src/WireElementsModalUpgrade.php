@@ -14,13 +14,33 @@ class WireElementsModalUpgrade extends UpgradeStep
             title: 'The $dispatch helper expects named arguments.',
             before: '$dispatch(\'openModal\', \'component-name\', {user: 1})',
             after: '$dispatch(\'openModal\', {component: \'component-name\', arguments: {user: 1}})',
-            pattern: '/\$(?:dispatch|emit)\(\'openModal\', \'([^\']+)\'(?:, (\{[^}]+\}|@js\(\[[^\]]+\]\)))?\)/',
+            pattern: '/\$(?:dispatch|emit)\(\'openModal\'(?:,\s?)([^,|\)]*)(?:,\s?)?((?:(?:.|\s)*?).*)\)/',
             replacement: function($matches) {
                 $component = $matches[1];
-                $params = isset($matches[2]) ? ', arguments: ' . $matches[2] : '';
-                return "\$dispatch('openModal', {component: '$component'$params})";
+                $arguments = $matches[2];
+                if (empty($arguments)) {
+                    return "\$dispatch('openModal', { component: $component })";
+                }
+                return "\$dispatch('openModal', {component: $component, arguments: $arguments })";
             },
             directories: 'resources'
+        );
+
+        $this->interactiveReplacement(
+            console: $console,
+            title: 'The $this->dispatch helper expects named arguments.',
+            before: '$this->dispatch(\'openModal\', \'component-name\', {user: 1})',
+            after: '$this->dispatch(\'openModal\', {component: \'component-name\', arguments: {user: 1}})',
+            pattern: '/\$this->(?:dispatch|emit)\(\'openModal\'(?:,\s?)([^,|\)]*)(?:,\s?)?((?:(?:.|\s)*?).*)\)/',
+            replacement: function($matches) {
+                $component = $matches[1];
+                $arguments = $matches[2];
+                if (empty($arguments)) {
+                    return "\$this->dispatch('openModal', { component: $component })";
+                }
+                return "\$this->dispatch('openModal', {component: $component, arguments: $arguments })";
+            },
+            directories: ['app', 'tests']
         );
 
         $this->interactiveReplacement(
@@ -28,11 +48,14 @@ class WireElementsModalUpgrade extends UpgradeStep
             title: 'The Livewire.dispatch helper expects named arguments.',
             before: 'Livewire.dispatch(\'openModal\', \'component-name\', {user: 1})',
             after: 'Livewire.dispatch(\'openModal\', {component: \'component-name\', arguments: {user: 1}})',
-            pattern: '/Livewire.(?:dispatch|emit)\(\'openModal\', \'([^\']+)\'(?:, (\{[^}]+\}|@js\(\[[^\]]+\]\)))?\)/',
+            pattern: '/Livewire\.(?:dispatch|emit)\(\'openModal\'(?:,\s?)([^,|\)]*)(?:,\s?)?((?:(?:.|\s)*?).*)\)/',
             replacement: function($matches) {
                 $component = $matches[1];
-                $params = isset($matches[2]) ? ', arguments: ' . $matches[2] : '';
-                return "Livewire.dispatch('openModal', {component: '$component'$params})";
+                $arguments = $matches[2];
+                if (empty($arguments)) {
+                    return "Livewire.dispatch('openModal', { component: $component })";
+                }
+                return "Livewire.dispatch('openModal', {component: $component, arguments: $arguments })";
             },
             directories: 'resources'
         );
