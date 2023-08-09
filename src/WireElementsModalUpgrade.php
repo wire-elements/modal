@@ -21,14 +21,14 @@ class WireElementsModalUpgrade extends UpgradeStep
                 if (empty($arguments)) {
                     return "\$dispatch('openModal', { component: $component })";
                 }
-                return "\$dispatch('openModal', {component: $component, arguments: $arguments })";
+                return "\$dispatch('openModal', { component: $component, arguments: $arguments })";
             },
             directories: 'resources'
         );
 
         $this->interactiveReplacement(
             console: $console,
-            title: 'The $this->dispatch helper expects named arguments.',
+            title: '$this->dispatch now expects named arguments.',
             before: '$this->dispatch(\'openModal\', \'component-name\', {user: 1})',
             after: '$this->dispatch(\'openModal\', {component: \'component-name\', arguments: {user: 1}})',
             pattern: '/\$this->(?:dispatch|emit)\(\'openModal\'(?:,\s?)([^,|\)]*)(?:,\s?)?((?:(?:.|\s)*?).*)\)/',
@@ -38,7 +38,7 @@ class WireElementsModalUpgrade extends UpgradeStep
                 if (empty($arguments)) {
                     return "\$this->dispatch('openModal', { component: $component })";
                 }
-                return "\$this->dispatch('openModal', {component: $component, arguments: $arguments })";
+                return "\$this->dispatch('openModal', { component: $component, arguments: $arguments })";
             },
             directories: ['app', 'tests']
         );
