@@ -16,26 +16,29 @@ class LivewireModalTest extends TestCase
 
         // Event attributes
         $component = 'demo-modal';
-        $componentAttributes = ['message' => 'Foobar'];
+        $arguments = ['user' => 1, 'number' => 42, 'message' => 'Hello World'];
         $modalAttributes = ['hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl',  'maxWidthClass' => 'sm:max-w-md md:max-w-xl lg:max-w-2xl', 'closeOnClickAway' => true, 'closeOnEscapeIsForceful' => true, 'dispatchCloseEvent' => false, 'destroyOnClose' => false, 'fullScreen' => false, 'type' => 'modal'];
 
         // Demo modal unique identifier
-        $id = md5($component.serialize($componentAttributes));
+        $id = md5($component.serialize($arguments));
 
         Livewire::test(Modal::class)
-            ->emit('openModal', $component, $componentAttributes, $modalAttributes)
+            ->dispatch('openModal', component: $component, arguments: $arguments, modalAttributes: $modalAttributes)
             // Verify component is added to $components
             ->assertSet('components', [
                 $id => [
                     'name' => $component,
-                    'attributes' => $componentAttributes,
+                    'arguments' => $arguments,
+                    'attributes' => $arguments, // Deprecated
                     'modalAttributes' => $modalAttributes,
                 ],
             ])
             // Verify component is set to active
             ->assertSet('activeComponent', $id)
             // Verify event is emitted to client
-            ->assertEmitted('activeModalComponentChanged', $id);
+            ->assertDispatched('activeModalComponentChanged', id: $id);
+            // Verif if component attribute 'message' is visible
+            // ->assertSee(['Hello World', 1, '42']);
     }
 
     public function testDestroyComponentEventListener(): void
@@ -44,22 +47,23 @@ class LivewireModalTest extends TestCase
         Livewire::component('demo-modal', DemoModal::class);
 
         $component = 'demo-modal';
-        $componentAttributes = ['message' => 'Foobar'];
+        $arguments = ['message' => 'Foobar'];
         $modalAttributes = ['hello' => 'world', 'closeOnEscape' => true, 'maxWidth' => '2xl', 'maxWidthClass' => 'sm:max-w-md md:max-w-xl lg:max-w-2xl', 'closeOnClickAway' => true, 'closeOnEscapeIsForceful' => true, 'dispatchCloseEvent' => false, 'destroyOnClose' => false, 'fullScreen' => false, 'type' => 'modal'];
 
         // Demo modal unique identifier
-        $id = md5($component.serialize($componentAttributes));
+        $id = md5($component.serialize($arguments));
 
         Livewire::test(Modal::class)
-            ->emit('openModal', $component, $componentAttributes, $modalAttributes)
+            ->dispatch('openModal', component: $component, arguments: $arguments, modalAttributes: $modalAttributes)
             ->assertSet('components', [
                 $id => [
                     'name' => $component,
-                    'attributes' => $componentAttributes,
+                    'arguments' => $arguments,
+                    'attributes' => $arguments, // Deprecated
                     'modalAttributes' => $modalAttributes,
                 ],
             ])
-            ->emit('destroyComponent', $id)
+            ->dispatch('destroyComponent', $id)
             ->assertSet('components', []);
     }
 
@@ -68,11 +72,11 @@ class LivewireModalTest extends TestCase
         Livewire::component('demo-modal', DemoModal::class);
 
         Livewire::test(Modal::class)
-            ->emit('openModal', 'demo-modal')
+            ->dispatch('openModal', 'demo-modal')
             ->set('components', [
                 'some-component' => [
                     'name' => 'demo-modal',
-                    'attributes' => 'bar',
+                    'arguments' => ['bar'],
                     'modalAttributes' => [],
                 ],
             ])
@@ -90,6 +94,6 @@ class LivewireModalTest extends TestCase
         $this->expectExceptionMessage("[{$component}] does not implement [LivewireUI\Modal\Contracts\ModalComponent] interface.");
 
         Livewire::component('invalid-modal', $component);
-        Livewire::test(Modal::class)->emit('openModal', 'invalid-modal');
+        Livewire::test(Modal::class)->dispatch('openModal', component: 'invalid-modal');
     }
 }

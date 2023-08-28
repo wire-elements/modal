@@ -6,11 +6,18 @@ use LivewireUI\Modal\ModalComponent;
 
 class DemoModal extends ModalComponent
 {
+    public $user;
+
+    public $number;
+
+    public $message;
+
     public function render()
     {
         return <<<'blade'
             <div>
-                Hello
+                {$this->user} says:
+                {$this->message} + {$this->number}
             </div>
         blade;
     }

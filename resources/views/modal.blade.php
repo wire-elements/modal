@@ -9,26 +9,25 @@
 
     <div
         x-data="LivewireUIModal()"
-        x-init="init()"
-        x-on:close.stop="show = false"
+        x-on:close.stop="setShowPropertyTo(false)"
         x-on:keydown.escape.window="closeModalOnEscape()"
-        x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
-        x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
+        {{-- x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
+        x-on:keydown.shift.tab.prevent="prevFocusable().focus()" --}}
         x-show="show"
         {{-- x-trap.noscroll="show" --}}
-        class="fixed inset-0 z-40"
+        class="fixed inset-0 z-40 overflow-y-auto"
         style="display: none;"
     >
         <div
             x-show="show"
             x-on:click="closeModalOnClickAway()"
-            x-transition:enter="transform transition ease-out duration-500 sm:duration-700"
+            x-transition:enter="ease-out duration-500 sm:duration-700"
             x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100"
-            x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700"
+            x-transition:leave="ease-in-out duration-500 sm:duration-700"
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
-            class="fixed inset-0"
+            class="fixed inset-0 transition-all transform"
         >
             <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
@@ -55,7 +54,7 @@
                         @foreach($components as $id => $component)
                             @if(isset($component['modalAttributes']['type']) && $component['modalAttributes']['type'] == 'slide-over')
                                 <div class="flex h-full flex-col" x-show="activeComponent == '{{ $id }}'" x-ref="{{ $id }}" wire:key="{{ $id }}">
-                                    @livewire($component['name'], $component['attributes'], key($id))
+                                    @livewire($component['name'], $component['arguments'], key($id))
                                 </div>
                             @endif
                         @endforeach
@@ -76,11 +75,10 @@
                             x-bind:class="modalWidth" 
                             x-description="Modal panel, show/hide based on modal state." 
                         >
-                           
                             @foreach($components as $id => $component)
                                 @if(isset($component['modalAttributes']['type']) && $component['modalAttributes']['type'] == 'modal')
                                     <div class="flex h-full flex-col" x-show="activeComponent == '{{ $id }}'" x-ref="{{ $id }}" wire:key="{{ $id }}">
-                                        @livewire($component['name'], $component['attributes'], key($id))
+                                        @livewire($component['name'], $component['arguments'], key($id))
                                     </div>
                                 @endif
                             @endforeach

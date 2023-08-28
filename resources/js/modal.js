@@ -28,21 +28,24 @@ window.LivewireUIModal = () => {
             this.closeModal(true);
         },
         closeModal(force = false, skipPreviousModals = 0, destroySkipped = false) {
+            if(this.show === false) {
+                return;
+            }
 
             if (this.getActiveComponentModalAttribute('dispatchCloseEvent') === true) {
                 const componentName = this.$wire.get('components')[this.activeComponent].name;
-                Livewire.emit('modalClosed', componentName);
+                Livewire.dispatch('modalClosed', componentName);
             }
 
             if (this.getActiveComponentModalAttribute('destroyOnClose') === true) {
-                Livewire.emit('destroyComponent', this.activeComponent);
+                Livewire.dispatch('destroyComponent', this.activeComponent);
             }
 
             if (skipPreviousModals > 0) {
                 for (var i = 0; i < skipPreviousModals; i++) {
                     if (destroySkipped) {
                         const id = this.componentHistory[this.componentHistory.length - 1];
-                        Livewire.emit('destroyComponent', id);
+                        Livewire.dispatch('destroyComponent', {id: id});
                     }
                     this.componentHistory.pop();
                 }
@@ -54,14 +57,14 @@ window.LivewireUIModal = () => {
                 if (id) {
                     this.setActiveModalComponent(id, true);
                 } else {
-                    this.show = false;
+                    this.setShowPropertyTo(false);
                 }
             } else {
-                this.show = false;
+                this.setShowPropertyTo(false);
             }
         },
         setActiveModalComponent(id, skip = false) {
-            this.show = true;
+            this.setShowPropertyTo(true);
 
             if (this.activeComponent === id) {
                 return;
@@ -104,7 +107,7 @@ window.LivewireUIModal = () => {
             });
         },
         focusables() {
-            let selector = 'a, button, input, textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'
+            let selector = 'a, button, input:not([type=\'hidden\'], textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'
 
             return [...this.$el.querySelectorAll(selector)]
                 .filter(el => !el.hasAttribute('disabled'))
@@ -127,34 +130,46 @@ window.LivewireUIModal = () => {
         prevFocusableIndex() {
             return Math.max(0, this.focusables().indexOf(document.activeElement)) - 1
         },
+        setShowPropertyTo(show) {
+            this.show = show;
+
+            if (show) {
+                document.body.classList.add('overflow-y-hidden');
+            } else {
+                document.body.classList.remove('overflow-y-hidden');
+
+                setTimeout(() => {
+                    this.activeComponent = false;
+                    this.$wire.resetState();
+                }, 300);
+            }
+        },
         init() {
             this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
             this.fullScreen = this.getActiveComponentModalAttribute('fullScreen');
 
-            this.$watch('show', value => {
-                if (value) {
-                    document.body.classList.add('overflow-y-hidden');
-                } else {
-                    document.body.classList.remove('overflow-y-hidden');
+            // this.$watch('show', value => {
+            //     if (value) {
+            //         document.body.classList.add('overflow-y-hidden');
+            //     } else {
+            //         document.body.classList.remove('overflow-y-hidden');
 
-                    setTimeout(() => {
-                        this.activeComponent = false;
-                        this.activeComponentType = null;
+            //         setTimeout(() => {
+            //             this.activeComponent = false;
+            //             this.activeComponentType = null;
                         
-                        this.$wire.resetState();
-                    }, 300);
-                }
+            //             this.$wire.resetState();
+            //         }, 300);
+            //     }
+            // });
+
+            Livewire.on('closeModal', (data) => {
+                this.closeModal(data?.force ?? false, data?.skipPreviousModals ?? 0, data?.destroySkipped ?? false);
             });
 
-            Livewire.on('closeModal', (force = false, skipPreviousModals = 0, destroySkipped = false) => {
-                this.closeModal(force, skipPreviousModals, destroySkipped);
-            });
-
-            Livewire.on('activeModalComponentChanged', (id) => {
+            Livewire.on('activeModalComponentChanged', ({id}) => {
                 this.setActiveModalComponent(id);
             });
-
-            
         }
     };
 }

@@ -15,17 +15,6 @@ abstract class ModalComponent extends Component implements Contract
     public bool $destroySkipped = false;
 
     protected static array $maxWidths = [
-        // 'sm'  => 'sm:max-w-sm',
-        // 'md'  => 'sm:max-w-md',
-        // 'lg'  => 'sm:max-w-md md:max-w-lg',
-        // 'xl'  => 'sm:max-w-md md:max-w-xl',
-        // '2xl' => 'sm:max-w-md md:max-w-xl lg:max-w-2xl',
-        // '3xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl',
-        // '4xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-4xl',
-        // '5xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl',
-        // '6xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl',
-        // '7xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl',
-
         'sm' => 'w-screen max-w-sm',
         'md' => 'w-screen max-w-md',
         'lg' => 'w-screen max-w-lg',
@@ -38,16 +27,6 @@ abstract class ModalComponent extends Component implements Contract
         '7xl' => 'w-screen max-w-7xl',
         'full' => 'w-screen max-w-full',
 
-        // 'sm'  => 'max-w-full sm:w-1/6',
-        // 'md'  => 'max-w-full sm:w-1/4',
-        // 'lg'  => 'max-w-full sm:max-w-md md:max-w-lg',
-        // 'xl'  => 'max-w-full sm:max-w-md md:max-w-xl',
-        // '2xl' => 'max-w-full sm:w-2/3 md:w-1/2 2xl:w-1/3',
-        // '3xl' => 'max-w-full sm:max-w-md md:max-w-xl lg:max-w-3xl',
-        // '4xl' => 'max-w-full sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-4xl',
-        // '5xl' => 'max-w-full sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl',
-        // '6xl' => 'max-w-full sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl',
-        // '7xl' => 'max-w-full sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl',
     ];
 
     public function destroySkippedModals(): self
@@ -81,7 +60,7 @@ abstract class ModalComponent extends Component implements Contract
 
     public function closeModal(): void
     {
-        $this->emit('closeModal', $this->forceClose, $this->skipModals, $this->destroySkipped);
+        $this->dispatch('closeModal', force: $this->forceClose, skipPreviousModals: $this->skipModals, destroySkipped: $this->destroySkipped);
     }
 
     public function closeModalWithEvents(array $events): void
@@ -92,17 +71,7 @@ abstract class ModalComponent extends Component implements Contract
 
     public static function modalMaxWidth(): string
     {
-        return config('livewire-ui-modal.component_defaults.modal_max_width', '2xl');
-    }
-
-    public static function type(): string
-    {
-        return 'modal';
-    }
-
-    public static function fullScreenOnMobile(): bool
-    {
-        return false;
+        return config('wire-elements-modal.component_defaults.modal_max_width', '2xl');
     }
 
     public static function modalMaxWidthClass(): string
@@ -115,6 +84,16 @@ abstract class ModalComponent extends Component implements Contract
         }
 
         return static::$maxWidths[static::modalMaxWidth()];
+    }
+
+    public static function type(): string
+    {
+        return 'modal';
+    }
+
+    public static function fullScreenOnMobile(): bool
+    {
+        return false;
     }
 
     public static function closeModalOnClickAway(): bool
@@ -150,9 +129,9 @@ abstract class ModalComponent extends Component implements Contract
             }
 
             if (is_numeric($component)) {
-                $this->emit($event, ...$params ?? []);
+                $this->dispatch($event, ...$params ?? []);
             } else {
-                $this->emitTo($component, $event, ...$params ?? []);
+                $this->dispatch($event, ...$params ?? [])->to($component);
             }
         }
     }
