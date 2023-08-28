@@ -36,7 +36,7 @@ window.LivewireUIModal = () => {
             }
 
             if (this.getActiveComponentModalAttribute('destroyOnClose') === true) {
-                Livewire.dispatch('destroyComponent', this.activeComponent);
+                Livewire.dispatch('destroyComponent', {id: this.activeComponent});
             }
 
             if (skipPreviousModals > 0) {
