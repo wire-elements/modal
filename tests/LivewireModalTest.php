@@ -37,8 +37,8 @@ class LivewireModalTest extends TestCase
             ->assertSet('activeComponent', $id)
             // Verify event is emitted to client
             ->assertDispatched('activeModalComponentChanged', id: $id);
-            // Verif if component attribute 'message' is visible
-            // ->assertSee(['Hello World', 1, '42']);
+        // Verif if component attribute 'message' is visible
+        // ->assertSee(['Hello World', 1, '42']);
     }
 
     public function testDestroyComponentEventListener(): void
