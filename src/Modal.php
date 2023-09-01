@@ -84,6 +84,14 @@ class Modal extends Component
             return $parameterValue;
         }
 
+        if(enum_exists($parameterClassName)){
+            $enum = $parameterClassName::tryFrom($parameterValue);
+        
+            if($enum !== null){
+                return $enum;
+            }
+        }
+
         $instance = app()->make($parameterClassName);
 
         if (! $model = $instance->resolveRouteBinding($parameterValue)) {
