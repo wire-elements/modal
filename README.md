@@ -6,10 +6,10 @@
 <a href="https://packagist.org/packages/wire-elements/modal"><img src="https://img.shields.io/packagist/l/wire-elements/modal" alt="License"></a>
 </p>
 
-## BETA for Livewire v3
-This is the readme for the BETA version of the package for Livewire v3. **If you are looking for the readme for the stable version for Livewire v2 [click here](https://github.com/wire-elements/modal/tree/1.0.0).**
+## Livewire v3
+This is the readme for Livewire v3. **If you are looking for the readme for Livewire v2 [click here](https://github.com/wire-elements/modal/tree/1.0.0).**
 
-### Upgrading
+### Upgrading from v2
 
 You can use the following command to automate the upgrade process:
 
@@ -57,7 +57,7 @@ Click the image above to read a full article on using the Wire Elements modal pa
 To get started, require the package via Composer:
 
 ```
-composer require wire-elements/modal:^2.0@beta
+composer require wire-elements/modal:^2.0
 ```
 
 ## Livewire directive
