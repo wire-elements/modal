@@ -234,7 +234,7 @@ public function update()
     $this->user->update($data);
 
     $this->closeModalWithEvents([
-        UserOverview::getName() => 'userModified',
+        UserOverview::class => 'userModified',
     ]);
 }
 ```
@@ -247,7 +247,7 @@ public function update()
     $this->user->update($data);
 
     $this->closeModalWithEvents([
-        UserOverview::getName() => ['userModified', [$this->user->id]],
+        UserOverview::class => ['userModified', [$this->user->id]],
     ]);
 }
 ```
@@ -339,7 +339,7 @@ class DeleteTeam extends ModalComponent
         $this->team->delete();
 
         $this->skipPreviousModal()->closeModalWithEvents([
-            TeamOverview::getName() => 'teamDeleted'
+            TeamOverview::class => 'teamDeleted'
         ]);
     }
 
