@@ -29,16 +29,16 @@ class WireElementsModalUpgrade extends UpgradeStep
         $this->interactiveReplacement(
             console: $console,
             title: '$this->dispatch now expects named arguments.',
-            before: '$this->dispatch(\'openModal\', \'component-name\', {user: 1})',
-            after: '$this->dispatch(\'openModal\', {component: \'component-name\', arguments: {user: 1}})',
+            before: '$this->dispatch(\'openModal\', \'component-name\', [\'user\' => 1])',
+            after: '$this->dispatch(\'openModal\', component: \'component-name\', arguments: [\'user\' => 1])',
             pattern: '/\$this->(?:dispatch|emit)\(\'openModal\'(?:,\s?)([^,|\)]*)(?:,\s?)?((?:(?:.|\s)*?).*)\)/',
             replacement: function($matches) {
                 $component = $matches[1];
                 $arguments = $matches[2];
                 if (empty($arguments)) {
-                    return "\$this->dispatch('openModal', { component: $component })";
+                    return "\$this->dispatch('openModal', component: $component)";
                 }
-                return "\$this->dispatch('openModal', { component: $component, arguments: $arguments })";
+                return "\$this->dispatch('openModal', component: $component, arguments: $arguments)";
             },
             directories: ['app', 'tests']
         );
