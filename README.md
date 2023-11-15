@@ -360,6 +360,7 @@ You can also optionally call the `destroySkippedModals()` method to destroy the 
 To purge the classes used by the package, add the following lines to your purge array in `tailwind.config.js`:
 ```js
 './vendor/wire-elements/modal/resources/views/*.blade.php',
+'./vendor/wire-elements/modal/src/**/*.php',
 './storage/framework/views/*.php',
 ```
 
@@ -369,6 +370,7 @@ module.exports = {
   purge: {
     content: [
       './vendor/wire-elements/modal/resources/views/*.blade.php',
+      './vendor/wire-elements/modal/src/**/*.php',
       './storage/framework/views/*.php',
       './resources/views/**/*.blade.php',
     ],
