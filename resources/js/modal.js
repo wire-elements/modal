@@ -5,6 +5,7 @@ window.LivewireUIModal = () => {
         activeComponent: false,
         componentHistory: [],
         modalWidth: null ,
+        listeners: [],
         getActiveComponentModalAttribute(key) {
             if (this.$wire.get('components')[this.activeComponent] !== undefined) {
                 return this.$wire.get('components')[this.activeComponent]['modalAttributes'][key];
@@ -140,12 +141,21 @@ window.LivewireUIModal = () => {
         init() {
             this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
 
-            Livewire.on('closeModal', (data) => {
-                this.closeModal(data?.force ?? false, data?.skipPreviousModals ?? 0, data?.destroySkipped ?? false);
-            });
+            this.listeners.push(
+                Livewire.on('closeModal', (data) => {
+                    this.closeModal(data?.force ?? false, data?.skipPreviousModals ?? 0, data?.destroySkipped ?? false);
+                })
+            );
 
-            Livewire.on('activeModalComponentChanged', ({id}) => {
-                this.setActiveModalComponent(id);
+            this.listeners.push(
+                Livewire.on('activeModalComponentChanged', ({id}) => {
+                    this.setActiveModalComponent(id);
+                })
+            );
+        },
+        destroy() {
+            this.listeners.forEach((listener) => {
+                listener();
             });
         }
     };
