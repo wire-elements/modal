@@ -61,12 +61,8 @@ class Modal extends Component
         $this->dispatch('activeModalComponentChanged', id: $id);
     }
 
-    public function resolveComponentProps(array $attributes, Component $component)
+    public function resolveComponentProps(array $attributes, Component $component): Collection
     {
-        if (PHP_VERSION_ID < 70400) {
-            return;
-        }
-
         return $this->getPublicPropertyTypes($component)
             ->intersectByKeys($attributes)
             ->map(function ($className, $propName) use ($attributes) {
@@ -101,12 +97,8 @@ class Modal extends Component
         return $model;
     }
 
-    public function getPublicPropertyTypes($component)
+    public function getPublicPropertyTypes($component): Collection
     {
-        if (PHP_VERSION_ID < 70400) {
-            return new Collection();
-        }
-
         return collect($component->all())
             ->map(function ($value, $name) use ($component) {
                 return Reflector::getParameterClassName(new \ReflectionProperty($component, $name));
