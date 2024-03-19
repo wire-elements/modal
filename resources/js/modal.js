@@ -38,7 +38,7 @@ window.LivewireUIModal = () => {
             }
 
             if (this.getActiveComponentModalAttribute('destroyOnClose') === true) {
-                Livewire.dispatch('destroyComponent', this.activeComponent);
+                Livewire.dispatch('destroyComponent', {id: this.activeComponent});
             }
 
             if (skipPreviousModals > 0) {
@@ -53,7 +53,7 @@ window.LivewireUIModal = () => {
 
             const id = this.componentHistory.pop();
 
-            if (id && force === false) {
+            if (id && !force) {
                 if (id) {
                     this.setActiveModalComponent(id, true);
                 } else {
@@ -147,21 +147,6 @@ window.LivewireUIModal = () => {
         init() {
             this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
             this.fullScreen = this.getActiveComponentModalAttribute('fullScreen');
-
-            // this.$watch('show', value => {
-            //     if (value) {
-            //         document.body.classList.add('overflow-y-hidden');
-            //     } else {
-            //         document.body.classList.remove('overflow-y-hidden');
-
-            //         setTimeout(() => {
-            //             this.activeComponent = false;
-            //             this.activeComponentType = null;
-                        
-            //             this.$wire.resetState();
-            //         }, 300);
-            //     }
-            // });
 
             Livewire.on('closeModal', (data) => {
                 this.closeModal(data?.force ?? false, data?.skipPreviousModals ?? 0, data?.destroySkipped ?? false);

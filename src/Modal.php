@@ -130,7 +130,7 @@ class Modal extends Component
             $cssPath = __DIR__.'/../public/modal.css';
         }
 
-        return view('livewire-ui-modal::modal', [
+        return view('wire-elements-modal::modal', [
             'jsPath' => $jsPath ?? null,
             'cssPath' => $cssPath ?? null,
         ]);

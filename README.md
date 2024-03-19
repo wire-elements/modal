@@ -57,7 +57,7 @@ You can run `php artisan make:livewire EditUser` to make the initial Livewire co
 ```php
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use LivewireUI\Modal\ModalComponent;
 
@@ -106,7 +106,7 @@ The parameters are passed to the `mount` method on the modal component:
 ```php
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\User;
 use LivewireUI\Modal\ModalComponent;
@@ -151,7 +151,7 @@ You can also close a modal from within your modal component class:
 ```php
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\User;
 use LivewireUI\Modal\ModalComponent;
@@ -290,7 +290,7 @@ You can use the `skipPreviousModal` method to achieve this. By default it will s
 ```php
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Team;
 use LivewireUI\Modal\ModalComponent;
