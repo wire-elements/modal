@@ -390,6 +390,24 @@ module.exports = {
 }
 ```
 
+For TailwindCSS `3x`
+```js
+export default {
+  content: [
+    './vendor/wire-elements/modal/resources/views/*.blade.php',
+    './storage/framework/views/*.php',
+    './resources/views/**/*.blade.php',
+  ],
+  safelist: [
+    {
+      pattern: /max-w-(sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl)/,
+      variants: ['sm', 'md', 'lg', 'xl', '2xl']
+    }
+  ],
+  // other options
+}
+```
+
 ## Configuration
 You can customize the Modal via the `wire-elements-modal.php` config file. This includes some additional options like including CSS if you don't use TailwindCSS for your application, as well as the default modal properties.
 
