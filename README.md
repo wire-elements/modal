@@ -80,7 +80,11 @@ php artisan vendor:publish --tag=wire-elements-modal-views
 
 
 ## Creating a modal
-You can run `php artisan make:livewire EditUser` to make the initial Livewire component. Open your component class and make sure it extends the `ModalComponent` class:
+You can run 
+
+`php artisan make:livewire EditUser` 
+
+to make the initial Livewire component. Open your component class and make sure it extends the `ModalComponent` class:
 
 ```php
 <?php
