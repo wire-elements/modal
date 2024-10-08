@@ -27,6 +27,9 @@ abstract class ModalComponent extends Component implements Contract
         '7xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl',
     ];
 
+     protected static string $align = "items-end";
+    
+
     public function destroySkippedModals(): self
     {
         $this->destroySkipped = true;
