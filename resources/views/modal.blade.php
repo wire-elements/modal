@@ -9,7 +9,7 @@
     <div
             x-data="LivewireUIModal()"
             x-on:close.stop="setShowPropertyTo(false)"
-            x-on:keydown.escape.window="closeModalOnEscape()"
+            x-on:keydown.escape.window="show && closeModalOnEscape()"
             x-show="show"
             class="fixed inset-0 z-10 overflow-y-auto"
             style="display: none;"
