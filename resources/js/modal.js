@@ -16,6 +16,10 @@ window.LivewireUIModal = () => {
                 return;
             }
 
+            if (!this.closingModal('closingModalOnEscape')) {
+                return;
+            }
+
             let force = this.getActiveComponentModalAttribute('closeOnEscapeIsForceful') === true;
             this.closeModal(force);
         },
@@ -24,7 +28,23 @@ window.LivewireUIModal = () => {
                 return;
             }
 
+            if (!this.closingModal('closingModalOnClickAway')) {
+                return;
+            }
+
             this.closeModal(true);
+        },
+        closingModal(eventName) {
+            const componentName = this.$wire.get('components')[this.activeComponent].name;
+
+            var params = {
+                id: this.activeComponent,
+                closing: true,
+            };
+
+            Livewire.dispatchTo(componentName, eventName, params);
+
+            return params.closing;
         },
         closeModal(force = false, skipPreviousModals = 0, destroySkipped = false) {
             if(this.show === false) {
@@ -101,7 +121,7 @@ window.LivewireUIModal = () => {
             });
         },
         focusables() {
-            let selector = 'a, button, input:not([type=\'hidden\'], textarea, select, details, [tabindex]:not([tabindex=\'-1\']))'
+            let selector = 'a, button, input:not([type=\'hidden\']), textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'
 
             return [...this.$el.querySelectorAll(selector)]
                 .filter(el => !el.hasAttribute('disabled'))
