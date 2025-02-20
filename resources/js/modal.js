@@ -121,7 +121,7 @@ window.LivewireUIModal = () => {
             });
         },
         focusables() {
-            let selector = 'a, button, input:not([type=\'hidden\'], textarea, select, details, [tabindex]:not([tabindex=\'-1\']))'
+            let selector = 'a, button, input:not([type=\'hidden\']), textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'
 
             return [...this.$el.querySelectorAll(selector)]
                 .filter(el => !el.hasAttribute('disabled'))
