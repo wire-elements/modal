@@ -12,7 +12,10 @@
     "autoprefixer": "^10.2.5",
     "laravel-mix": "^6.0.6",
     "postcss": "^8.2.12",
-    "tailwindcss": "^2.2.4",
+    "tailwindcss": "^4.0.0",
     "vue-template-compiler": "^2.6.12"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.0.15"
   }
 }
