@@ -19,7 +19,9 @@ class LivewireModalServiceProvider extends PackageServiceProvider
 
     public function registeringPackage()
     {
-        UpgradeCommand::addThirdPartyUpgradeStep(WireElementsModalUpgrade::class);
+        if (class_exists(\Livewire\Features\SupportConsoleCommands\Commands\UpgradeCommand::class)) {
+            \Livewire\Features\SupportConsoleCommands\Commands\UpgradeCommand::addThirdPartyUpgradeStep(WireElementsModalUpgrade::class);
+        }
     }
 
     public function bootingPackage(): void

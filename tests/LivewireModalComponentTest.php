@@ -8,6 +8,15 @@ use LivewireUI\Modal\Tests\Components\DemoModal;
 
 class LivewireModalComponentTest extends TestCase
 {
+    protected function getComponentName(string $class): string
+    {
+        if (class_exists(\Livewire\Mechanisms\ComponentRegistry::class)) {
+            return app(\Livewire\Mechanisms\ComponentRegistry::class)->getName($class);
+        }
+
+        return app('livewire.finder')->normalizeName($class);
+    }
+
     public function testCloseModal(): void
     {
         Livewire::test(DemoModal::class)
@@ -50,7 +59,7 @@ class LivewireModalComponentTest extends TestCase
             ])
             ->assertDispatched('someEvent');
 
-        $name = app(ComponentRegistry::class)->getName(DemoModal::class);
+        $name = $this->getComponentName(DemoModal::class);
 
         Livewire::test(DemoModal::class)
             ->call('closeModalWithEvents', [
