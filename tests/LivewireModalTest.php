@@ -72,15 +72,9 @@ class LivewireModalTest extends TestCase
         Livewire::component('demo-modal', DemoModal::class);
 
         Livewire::test(Modal::class)
-            ->dispatch('openModal', 'demo-modal')
-            ->set('components', [
-                'some-component' => [
-                    'name' => 'demo-modal',
-                    'arguments' => ['bar'],
-                    'modalAttributes' => [],
-                ],
-            ])
-            ->set('activeComponent', 'some-component')
+            ->dispatch('openModal', component: 'demo-modal', arguments: ['message' => 'Test'])
+            ->assertNotSet('activeComponent', null)
+            ->assertNotSet('components', [])
             ->call('resetState')
             // Verify properties are reset
             ->assertSet('activeComponent', null)

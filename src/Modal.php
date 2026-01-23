@@ -8,14 +8,17 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Reflector;
 use Illuminate\View\View;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Livewire\Mechanisms\ComponentRegistry;
 use ReflectionClass;
 
 class Modal extends Component
 {
+    #[Locked]
     public ?string $activeComponent;
 
+    #[Locked]
     public array $components = [];
 
     public function resetState(): void
