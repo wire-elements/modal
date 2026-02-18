@@ -148,9 +148,9 @@ window.LivewireUIModal = () => {
             this.show = show;
 
             if (show) {
-                document.body.classList.add('overflow-y-hidden');
+                document.body.classList.add('overflow-y-clip');
             } else {
-                document.body.classList.remove('overflow-y-hidden');
+                document.body.classList.remove('overflow-y-clip');
 
                 setTimeout(() => {
                     this.activeComponent = false;
