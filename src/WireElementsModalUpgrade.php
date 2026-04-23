@@ -13,15 +13,15 @@ class WireElementsModalUpgrade extends UpgradeStep
             console: $console,
             title: 'The $dispatch helper expects named arguments.',
             before: '$dispatch(\'openModal\', \'component-name\', {user: 1})',
-            after: '$dispatch(\'openModal\', {component: \'component-name\', arguments: {user: 1}})',
+            after: '$dispatch(\'openModal\', {modalComponent: \'component-name\', arguments: {user: 1}})',
             pattern: '/\$(?:dispatch|emit)\(\'openModal\'(?:,\s?)([^,|\)]*)(?:,\s?)?((?:(?:.|\s)*?).*)\)/',
             replacement: function($matches) {
                 $component = $matches[1];
                 $arguments = $matches[2];
                 if (empty($arguments)) {
-                    return "\$dispatch('openModal', { component: $component })";
+                    return "\$dispatch('openModal', { modalComponent: $component })";
                 }
-                return "\$dispatch('openModal', { component: $component, arguments: $arguments })";
+                return "\$dispatch('openModal', { modalComponent: $component, arguments: $arguments })";
             },
             directories: 'resources'
         );
@@ -30,15 +30,15 @@ class WireElementsModalUpgrade extends UpgradeStep
             console: $console,
             title: '$this->dispatch now expects named arguments.',
             before: '$this->dispatch(\'openModal\', \'component-name\', [\'user\' => 1])',
-            after: '$this->dispatch(\'openModal\', component: \'component-name\', arguments: [\'user\' => 1])',
+            after: '$this->dispatch(\'openModal\', modalComponent: \'component-name\', arguments: [\'user\' => 1])',
             pattern: '/\$this->(?:dispatch|emit)\(\'openModal\'(?:,\s?)([^,|\)]*)(?:,\s?)?((?:(?:.|\s)*?).*)\)/',
             replacement: function($matches) {
                 $component = $matches[1];
                 $arguments = $matches[2];
                 if (empty($arguments)) {
-                    return "\$this->dispatch('openModal', component: $component)";
+                    return "\$this->dispatch('openModal', modalComponent: $component)";
                 }
-                return "\$this->dispatch('openModal', component: $component, arguments: $arguments)";
+                return "\$this->dispatch('openModal', modalComponent: $component, arguments: $arguments)";
             },
             directories: ['app', 'tests']
         );
@@ -53,7 +53,7 @@ class WireElementsModalUpgrade extends UpgradeStep
                 $component = $matches[1];
                 $arguments = $matches[2];
                 if (empty($arguments)) {
-                    return "Livewire.dispatch('openModal', { component: $component })";
+                    return "Livewire.dispatch('openModal', { modalComponent: $component })";
                 }
                 return "Livewire.dispatch('openModal', {component: $component, arguments: $arguments })";
             },
