@@ -27,17 +27,17 @@ class Modal extends Component
         $this->activeComponent = null;
     }
 
-    public function openModal($component, $arguments = [], $modalAttributes = []): void
+    public function openModal($modalComponent, $arguments = [], $modalAttributes = []): void
     {
         $requiredInterface = \LivewireUI\Modal\Contracts\ModalComponent::class;
-        $componentClass = $this->resolveComponentClass($component);
+        $componentClass = $this->resolveComponentClass($modalComponent);
         $reflect = new ReflectionClass($componentClass);
 
         if ($reflect->implementsInterface($requiredInterface) === false) {
             throw new Exception("[{$componentClass}] does not implement [{$requiredInterface}] interface.");
         }
 
-        $id = md5($component.serialize($arguments));
+        $id = md5($modalComponent.serialize($arguments));
 
         $arguments = collect($arguments)
             ->merge($this->resolveComponentProps($arguments, new $componentClass()))
@@ -45,7 +45,7 @@ class Modal extends Component
 
 
         $this->components[$id] = [
-            'name' => $component,
+            'name' => $modalComponent,
             'attributes' => $arguments, // Deprecated
             'arguments' => $arguments,
             'modalAttributes' => array_merge([
