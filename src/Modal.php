@@ -120,7 +120,7 @@ class Modal extends Component
             return app(\Livewire\Mechanisms\ComponentRegistry::class)->getClass($component);
         }
 
-        return app('livewire.finder')->resolveClassComponentClassName($component);
+        return app('livewire.factory')->resolveComponentClass($component);
     }
 
     public function getListeners(): array
