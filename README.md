@@ -170,6 +170,33 @@ From an existing modal you can use the exact same event and a child modal will b
 <button wire:click="$dispatch('openModal', { component: 'delete-user', arguments: { user: {{ $user->id }} }})">Delete User</button>
 ```
 
+### Keeping the parent modal visible
+
+By default, opening a child modal hides the current modal and preserves its state.
+Pass `replace: false` in `modalAttributes` to display the child above the current
+modal while keeping the current modal visible underneath:
+
+```javascript
+Livewire.dispatch('openModal', {
+    component: 'delete-user',
+    arguments: { user: 5 },
+    modalAttributes: { replace: false }
+});
+```
+
+The same `modalAttributes` object can be passed from a Blade `$dispatch` call.
+Only the top modal accepts interaction and keyboard focus. Each modal retains its
+own width. Omitting `replace`, or passing `true`, replaces the currently visible
+top modal while preserving any visible layers beneath it.
+
+Closing a child with `closeModal` restores the previous arrangement automatically,
+including when replacement and overlay openings are mixed. Existing force-close,
+Escape, click-away, skip and destroy options retain their behavior.
+
+To let Escape and backdrop clicks close only the current modal, also pass
+`closeOnEscapeIsForceful: false` and `closeOnClickAwayIsForceful: false` in
+`modalAttributes`. Both otherwise preserve their existing force-close defaults.
+
 ## Closing a (child) modal
 If for example a user clicks the 'Delete' button which will open a confirm dialog, you can cancel the deletion and return to the edit user modal by dispatching the `closeModal` event. This will open the previous modal. If there is no previous modal the entire modal component is closed and the state will be reset.
 ```html

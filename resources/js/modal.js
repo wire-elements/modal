@@ -4,6 +4,9 @@ window.LivewireUIModal = () => {
         showActiveComponent: true,
         activeComponent: false,
         componentHistory: [],
+        visibleComponents: [],
+        pendingReset: null,
+        closedComponent: null,
         modalWidth: null ,
         listeners: [],
         getActiveComponentModalAttribute(key) {
@@ -32,10 +35,19 @@ window.LivewireUIModal = () => {
                 return;
             }
 
-            this.closeModal(true);
+            // Overlays can cancel their own layer without dismissing the entire workflow.
+            const force = this.getActiveComponentModalAttribute('closeOnClickAwayIsForceful') !== false;
+            this.closeModal(force);
         },
         closingModal(eventName) {
-            const componentName = this.$wire.get('components')[this.activeComponent].name;
+            const components = this.$wire.get('components');
+
+            // Backdrop clicks can arrive during the leave transition after modal state has reset.
+            if (this.activeComponent === false || !components?.[this.activeComponent]) {
+                return false;
+            }
+
+            const componentName = components[this.activeComponent].name;
 
             var params = {
                 id: this.activeComponent,
@@ -56,33 +68,28 @@ window.LivewireUIModal = () => {
                 Livewire.dispatch('modalClosed', {name: componentName});
             }
 
-            if (this.getActiveComponentModalAttribute('destroyOnClose') === true) {
-                Livewire.dispatch('destroyComponent', {id: this.activeComponent});
-            }
-
             if (skipPreviousModals > 0) {
                 for (var i = 0; i < skipPreviousModals; i++) {
-                    if (destroySkipped) {
-                        const id = this.componentHistory[this.componentHistory.length - 1];
-                        Livewire.dispatch('destroyComponent', {id: id});
+                    const skipped = this.componentHistory.pop();
+                    if (destroySkipped && skipped) {
+                        Livewire.dispatch('destroyComponent', {id: skipped.id});
                     }
-                    this.componentHistory.pop();
                 }
             }
 
-            const id = this.componentHistory.pop();
+            const previous = this.componentHistory.pop();
 
-            if (id && !force) {
-                if (id) {
-                    this.setActiveModalComponent(id, true);
-                } else {
-                    this.setShowPropertyTo(false);
-                }
+            if (previous && !force) {
+                this.setActiveModalComponent(previous.id, true, previous);
             } else {
+                if (this.getActiveComponentModalAttribute('destroyOnClose') === true) {
+                    Livewire.dispatch('destroyComponent', {id: this.activeComponent});
+                }
+
                 this.setShowPropertyTo(false);
             }
         },
-        setActiveModalComponent(id, skip = false) {
+        setActiveModalComponent(id, skip = false, previous = null) {
             this.setShowPropertyTo(true);
 
             if (this.activeComponent === id) {
@@ -90,29 +97,64 @@ window.LivewireUIModal = () => {
             }
 
             if (this.activeComponent !== false && skip === false) {
-                this.componentHistory.push(this.activeComponent);
+                // Restore both the visible arrangement and the focused control when returning.
+                this.componentHistory.push({
+                    id: this.activeComponent,
+                    visibleComponents: [...this.visibleComponents],
+                    focus: document.activeElement,
+                });
             }
 
-            let focusableTimeout = 50;
+            const replace = this.$wire.get('components')[id].modalAttributes.replace !== false;
+            // Replacement changes only the top layer, preserving visible layers beneath it.
+            const nextVisibleComponents = previous?.visibleComponents ?? [
+                ...(replace ? this.visibleComponents.slice(0, -1) : this.visibleComponents)
+                    .filter(componentId => componentId !== id),
+                id,
+            ];
+            /**
+             * Restore the previous layers before destruction removes the closing modal's backdrop.
+             * Destroying during the leave animation would expose the page before its parent reappears.
+             */
+            const activate = () => {
+                const closingComponent = this.activeComponent;
+                const destroyOnClose = skip && this.getActiveComponentModalAttribute('destroyOnClose') === true;
 
-            if (this.activeComponent === false) {
-                this.activeComponent = id
+                this.activeComponent = id;
+                this.visibleComponents = nextVisibleComponents;
                 this.showActiveComponent = true;
                 this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
+
+                if (destroyOnClose) {
+                    /** Wait for Alpine to apply the restored layer's visibility before requesting removal. */
+                    this.$nextTick(() => {
+                        Livewire.dispatch('destroyComponent', {id: closingComponent});
+                    });
+                }
+            };
+            let focusableTimeout = 50;
+
+            if (this.activeComponent === false || !replace || this.visibleComponents.includes(id)) {
+                activate();
             } else {
                 this.showActiveComponent = false;
 
                 focusableTimeout = 400;
 
-                setTimeout(() => {
-                    this.activeComponent = id;
-                    this.showActiveComponent = true;
-                    this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
-                }, 300);
+                setTimeout(activate, 300);
             }
 
+            // A new opening owns the manager now; remove the component retained by a cancelled close.
+            if (this.closedComponent && this.closedComponent !== id) {
+                this.$wire.destroyComponent(this.closedComponent);
+            }
+
+            this.closedComponent = null;
+
             this.$nextTick(() => {
-                let focusable = this.$refs[id]?.querySelector('[autofocus]');
+                let focusable = previous?.focus?.isConnected
+                    ? previous.focus
+                    : this.$refs[id]?.querySelector('[autofocus]');
                 if (focusable) {
                     setTimeout(() => {
                         focusable.focus();
@@ -123,7 +165,7 @@ window.LivewireUIModal = () => {
         focusables() {
             let selector = 'a, button, input:not([type=\'hidden\']), textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'
 
-            return [...this.$el.querySelectorAll(selector)]
+            return [...(this.$refs[this.activeComponent]?.querySelectorAll(selector) ?? [])]
                 .filter(el => !el.hasAttribute('disabled'))
         },
         firstFocusable() {
@@ -152,14 +194,35 @@ window.LivewireUIModal = () => {
             } else {
                 document.body.classList.remove('overflow-y-hidden');
 
-                setTimeout(() => {
+                this.closedComponent = this.activeComponent;
+                /** Reset after the leave animation, unless reopening cancels the old close first. */
+                this.pendingReset = setTimeout(() => {
+                    this.pendingReset = null;
+                    this.closedComponent = null;
                     this.activeComponent = false;
+                    // The next opening starts with fresh navigation and visible layers.
+                    this.componentHistory = [];
+                    this.visibleComponents = [];
                     this.$wire.resetState();
                 }, 300);
             }
         },
         init() {
             this.modalWidth = this.getActiveComponentModalAttribute('maxWidthClass');
+
+            this.listeners.push(
+                /** Cancel the previous close before a new opening can be wiped by its delayed reset. */
+                Livewire.on('openModal', () => {
+                    // A pending close belongs to the previous navigation sequence, not the new modal.
+                    if (this.pendingReset) {
+                        clearTimeout(this.pendingReset);
+                        this.pendingReset = null;
+                        this.activeComponent = false;
+                        this.componentHistory = [];
+                        this.visibleComponents = [];
+                    }
+                })
+            );
 
             this.listeners.push(
                 Livewire.on('closeModal', (data) => {
