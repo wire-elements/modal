@@ -21,6 +21,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run JavaScript tests
+        run: npm run test:js
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
