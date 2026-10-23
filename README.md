@@ -23,12 +23,12 @@ Please review the changes and ensure they follow the new convention set by Livew
 <-- Before -->
 <button wire:click="$emit('openModal', 'users')">Show Users</button>
 <!-- After -->
-<button wire:click="$dispatch('openModal', {component: 'users'})">Show Users</button>
+<button wire:click="$dispatch('openModal', {modalComponent: 'users'})">Show Users</button>
 
 <-- Before -->
 <button wire:click="$emit('openModal', 'edit-user', {user: 5})">Edit User</button>
 <!-- After -->
-<button wire:click="$dispatch('openModal', {component: 'edit-user', arguments: {user: 5}})">Edit User</button>
+<button wire:click="$dispatch('openModal', {modalComponent: 'edit-user', arguments: {user: 5}})">Edit User</button>
 ```
 
 The old component name is being deprecated. Replace `@livewire('livewire-ui-modal')` with `@livewire('wire-elements-modal')`.
@@ -103,13 +103,13 @@ To open a modal you will need to dispatch an event. To open the `EditUser` modal
 
 ```html
 <!-- Outside of any Livewire component -->
-<button onclick="Livewire.dispatch('openModal', { component: 'edit-user' })">Edit User</button>
+<button onclick="Livewire.dispatch('openModal', { modalComponent: 'edit-user' })">Edit User</button>
 
 <!-- Inside existing Livewire component -->
-<button wire:click="$dispatch('openModal', { component: 'edit-user' })">Edit User</button>
+<button wire:click="$dispatch('openModal', { modalComponent: 'edit-user' })">Edit User</button>
 
 <!-- Taking namespace into account for component Admin/Actions/EditUser -->
-<button wire:click="$dispatch('openModal', { component: 'admin.actions.edit-user' })">Edit User</button>
+<button wire:click="$dispatch('openModal', { modalComponent: 'admin.actions.edit-user' })">Edit User</button>
 ```
 
 ## Passing parameters
@@ -117,16 +117,16 @@ To open the `EditUser` modal for a specific user we can pass the user id:
 
 ```html
 <!-- Outside of any Livewire component -->
-<button onclick="Livewire.dispatch('openModal', { component: 'edit-user', arguments: { user: {{ $user->id }} }})">Edit User</button>
+<button onclick="Livewire.dispatch('openModal', { modalComponent: 'edit-user', arguments: { user: {{ $user->id }} }})">Edit User</button>
 
 <!-- Inside existing Livewire component -->
-<button wire:click="$dispatch('openModal', { component: 'edit-user', arguments: { user: {{ $user->id }} }})">Edit User</button>
+<button wire:click="$dispatch('openModal', { modalComponent: 'edit-user', arguments: { user: {{ $user->id }} }})">Edit User</button>
 
 <!-- If you use a different primaryKey (e.g. email), adjust accordingly -->
-<button wire:click="$dispatch('openModal', { component: 'edit-user', arguments: { user: {{ $user->email }} }})">Edit User</button>
+<button wire:click="$dispatch('openModal', { modalComponent: 'edit-user', arguments: { user: {{ $user->email }} }})">Edit User</button>
 
 <!-- Example of passing multiple arguments -->
-<button wire:click="$dispatch('openModal', { component: 'edit-user', arguments: { user: {{ $user->id }}, advancedMode: true }})">Edit User</button>
+<button wire:click="$dispatch('openModal', { modalComponent: 'edit-user', arguments: { user: {{ $user->id }}, advancedMode: true }})">Edit User</button>
 ```
 
 The parameters are injected into the modal component and the model will be automatically fetched from the database if the type is defined:
@@ -167,7 +167,7 @@ From an existing modal you can use the exact same event and a child modal will b
 <!-- Edit User Modal -->
 
 <!-- Edit Form -->
-<button wire:click="$dispatch('openModal', { component: 'delete-user', arguments: { user: {{ $user->id }} }})">Delete User</button>
+<button wire:click="$dispatch('openModal', { modalComponent: 'delete-user', arguments: { user: {{ $user->id }} }})">Delete User</button>
 ```
 
 ## Closing a (child) modal

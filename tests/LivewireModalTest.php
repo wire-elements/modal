@@ -23,7 +23,7 @@ class LivewireModalTest extends TestCase
         $id = md5($component.serialize($arguments));
 
         Livewire::test(Modal::class)
-            ->dispatch('openModal', component: $component, arguments: $arguments, modalAttributes: $modalAttributes)
+            ->dispatch('openModal', modalComponent: $component, arguments: $arguments, modalAttributes: $modalAttributes)
             // Verify component is added to $components
             ->assertSet('components', [
                 $id => [
@@ -54,7 +54,7 @@ class LivewireModalTest extends TestCase
         $id = md5($component.serialize($arguments));
 
         Livewire::test(Modal::class)
-            ->dispatch('openModal', component: $component, arguments: $arguments, modalAttributes: $modalAttributes)
+            ->dispatch('openModal', modalComponent: $component, arguments: $arguments, modalAttributes: $modalAttributes)
             ->assertSet('components', [
                 $id => [
                     'name' => $component,
@@ -72,7 +72,7 @@ class LivewireModalTest extends TestCase
         Livewire::component('demo-modal', DemoModal::class);
 
         Livewire::test(Modal::class)
-            ->dispatch('openModal', component: 'demo-modal', arguments: ['message' => 'Test'])
+            ->dispatch('openModal', modalComponent: 'demo-modal', arguments: ['message' => 'Test'])
             ->assertNotSet('activeComponent', null)
             ->assertNotSet('components', [])
             ->call('resetState')
@@ -88,6 +88,6 @@ class LivewireModalTest extends TestCase
         $this->expectExceptionMessage("[{$component}] does not implement [LivewireUI\Modal\Contracts\ModalComponent] interface.");
 
         Livewire::component('invalid-modal', $component);
-        Livewire::test(Modal::class)->dispatch('openModal', component: 'invalid-modal');
+        Livewire::test(Modal::class)->dispatch('openModal', modalComponent: 'invalid-modal');
     }
 }
